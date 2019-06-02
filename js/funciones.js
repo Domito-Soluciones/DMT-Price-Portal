@@ -1,5 +1,5 @@
 
-/* global MODIFICADO, alertify, PAGINA_ANTERIOR, INTERVAL_SERVICIOS, MENU_OCULTO, PLACES_AUTOCOMPLETE_API, POSITION, API_KEY, google, map, flightPath, markers, menus */
+/* global MODIFICADO, alertify, PAGINA_ANTERIOR, INTERVAL_SERVICIOS, MENU_OCULTO, flightPath, markers, menus */
 var PAGINA_ANTERIOR;
 var MODIFICADO = false;
 var KEY = "DGFSGHJRTJTHWGWEJNGWI9EFN";
@@ -155,7 +155,6 @@ function cambiarModulo(pagina,params = null){
     {
         return;
     }
-    eliminarMarkers();
     if(MODIFICADO)
     {
         confirmar("Cambiar de modulo","¿Desea cambiar de modulo sin guardar los cambios?",
@@ -163,27 +162,9 @@ function cambiarModulo(pagina,params = null){
                 MODIFICADO = false;
                 quitarclase($(".opcion-menu"),"menu-activo");
                 agregarclase($("#"+pagina),"menu-activo");
-                if(pagina !== 'panel' || pagina !== 'monitoreo' || pagina !== 'servicio' || pagina !== 'pasajero' || pagina !== 'cliente')
-                {
-                    ocultarMapa();
-                }
                 $("#contenido-central").html("");
                 $("#contenido-central").load(pagina+".html",function( response, status, xhr ) {
                     variable = undefined;
-                    if(pagina === 'panel' || pagina === 'monitoreo')
-                    {
-                        if(pagina === 'panel' && params !== null)
-                        {
-                            $("#ids").val(params.ids);
-                            $("#clientes").val(params.clientes);
-                            $("#ruta").val(params.ruta);
-                            $("#fechaDesde").val(params.fechas);
-                            $("#hora").val(params.hora);
-                            $("#observacion").val(params.observacion);
-                            TIPO_SERVICIO = 1;
-                        }
-                        mostrarMapa();
-                    }
                 });
             },
             function(){
@@ -194,27 +175,9 @@ function cambiarModulo(pagina,params = null){
     {
         quitarclase($(".opcion-menu"),"menu-activo");
         agregarclase($("#"+pagina),"menu-activo");
-        if(pagina !== 'panel' || pagina !== 'monitoreo' || pagina !== 'servicio' || pagina !== 'pasajero' || pagina !== 'cliente')
-        {
-            ocultarMapa();
-        }
         $("#contenido-central").html("");
         $("#contenido-central").load(pagina+".html",function( response, status, xhr ) {
             variable = undefined;
-            if(pagina === 'panel' || pagina === 'monitoreo')
-            {
-                if(pagina === 'panel' && params !== null)
-                {
-                    $("#ids").val(params.ids);
-                    $("#clientes").val(params.clientes);
-                    $("#ruta").val(params.ruta);
-                    $("#fechaDesde").val(params.fechas);
-                    $("#hora").val(params.hora);
-                    $("#observacion").val(params.observacion);
-                    TIPO_SERVICIO = 1;
-                }
-                mostrarMapa();
-            }
         });
     }
     
@@ -470,7 +433,30 @@ function iniciarHora(inputs) {
         jQuery(inputs[i]).datetimepicker(conf);    
     }
 }
-
+function iniciarFechaHora(inputs) {
+    jQuery.datetimepicker.setLocale('es');
+    var conf = {
+        i18n:{
+            de:{
+                months:[
+                    'Januar','Februar','März','April',
+                    'Mai','Juni','Juli','August',
+                    'September','Oktober','November','Dezember'
+                ],
+                dayOfWeek:[
+                    "So.", "Mo", "Di", "Mi", 
+                    "Do", "Fr", "Sa."
+                ]
+            }
+        },
+        timepicker:true,
+        format:'d/m/Y H:i'
+    };
+    for(var i = 0 ; i < inputs.length; i++)
+    {
+        jQuery(inputs[i]).datetimepicker(conf);    
+    }
+}
 function validarRut(rut){
     var suma=0;
     var arrRut = rut.split("-");
@@ -585,21 +571,9 @@ function marcarCampoDisabled(campo)
     cambiarPropiedad(campo,"color","black");
 }
 
-function mostrarMapa()
-{
-    $('#map').appendTo('#contenedor_mapa');
-    cambiarPropiedad($('#map'),"display","block");
-}
-
-function ocultarMapa()
-{
-    $('#map').appendTo('body');
-    cambiarPropiedad($('#map'),"display","none");
-}
-
 function salir()
 {
-    var url = urlBase + "/agente/Logout.php";
+    var url = urlBase + "/usuario/Logout.php";
     var success = function()
     {
         window.location.href = "index.php";
@@ -761,18 +735,6 @@ function cerrarTooltip(tooltip)
     cambiarPropiedad($("#"+tooltip),"display","none");
 }
 
-function eliminarMarkers()
-{
-    if(typeof markers !== 'undefined')
-    {
-        for(var i = 0 ; i < markers.length;i++)
-        {
-            markers[i].setMap(null);
-        }
-    }
-}
-
-
 function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -780,26 +742,6 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-}
-
-function setDirections()
-{
-    if(directionsDisplay === null)
-    {
-        directionsDisplay = new google.maps.DirectionsRenderer();
-        directionsDisplay.setMap(map);
-    }
-}
-
-function borrarDirections()
-{
-    if(typeof directionsDisplay !== 'undefined')
-    {
-        if (directionsDisplay !== null) {
-            directionsDisplay.setMap(null);
-            directionsDisplay = null;
-        }
-    }
 }
 
 function exportar(data,params)
@@ -832,22 +774,6 @@ function obtenerEstadoServicio(servicio)
     else if(servicio === FINALIZADO)
     {
         return "Finalizado"; 
-    }
-}
-
-function limpiarMapa()
-{
-    if (directionsDisplay !== null) {
-        directionsDisplay.setMap(null);
-        directionsDisplay = null;
-    }
-    if(typeof flightPath !== "undefined")
-    {
-        flightPath.setMap(null);
-    }
-    for(var i = 0; i < markers.length;i++)
-    {
-        markers[i].setMap(null);
     }
 }
 

@@ -5,15 +5,10 @@ html,body
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: whitesmoke;
+    background-color: #f9e79f;
     font-family: Arial, Helvetica, sans-serif;
 }
-.map 
-{
-    height: 100%;
-    width: 100%;
-    display: none;
-}
+
 
 /* formularios */
 .mensaje-input
@@ -92,12 +87,11 @@ select
 .opcion-menu
 {
     background-color: #f9f9f9;
-    border-right: solid 2px #f9f9f9;
-    border-bottom: solid 1px #8a9cb2;
+    border-bottom: solid 1px #f9e79f;
     height: 40px;
     font-size: 15px;
     cursor: pointer;
-    color: #8a9cb2;
+    color: black;
 }
 .menu-salir
 {
@@ -109,14 +103,13 @@ select
 
 .opcion-menu:hover
 {
-    color: white;
-    background-color: #8a9cb2;
+    background-color: #f9e79f;
 }
 .menu-activo
 {
-    background-color: #8a9cb2;
-    color: white;
-    border-right: solid 10px #257ABB;
+    background-color: #f9e79f;
+    color: black;
+    border-right: solid 10px #d35400;
     cursor: initial;
 }
 .menu
@@ -127,7 +120,7 @@ select
     height: calc(100% - 60px);
     float: left;
     display: inline;
-    border-right: solid 1px silver;
+    border-right: solid 1px #d35400;
     overflow-y: auto;
 }
 .contenido-menu
@@ -172,7 +165,7 @@ select
 {
     font-size: 20px;
     color: white;
-    background-color: black;
+    background-color: #d35400;
     width: 100%;
     height: 60px;
 }
@@ -207,7 +200,7 @@ select
     float: right;
     text-align: center;
     line-height: 60px;
-    background-color: #999999;
+    background-color: #6e2c00;
     width: 15%;
     height: 60px;
     min-width: 160px;
@@ -227,8 +220,8 @@ select
 {
     width: 100%;
     height: 35px;
-    background-color: #ecf0f1;
-    color: #0b41d3;
+    background-color: #dc7633;
+    color: #f9e79f;
     font-size: 15px;
     font-weight: 600;
     text-align: center;
@@ -245,7 +238,7 @@ select
 {
     padding-left: 15px;
     padding-bottom: 20px;
-    border-bottom: solid 1px #8a9cb2;
+    border-bottom: solid 1px #f9e79f;
     height: auto;
 }
 .mensaje-error
@@ -269,7 +262,7 @@ select
     float: left;
     width: 25%;
     height: calc(100% - 50px);
-    border-right: solid 1px silver;
+    border-right: solid 1px #d35400;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -286,8 +279,8 @@ select
 .pie
 {
     width: 100%;
-    border-top: solid 1px silver;
-    background-color: #ecf0f1;
+    border-top: solid 1px #d35400;
+    background-color: #f9e79f;
     height: 49px;
 }
 .pie_liquidacion
@@ -295,7 +288,7 @@ select
     padding-left: 20px;
     position: relative;
     width: 100%;
-    border-top: solid 1px silver;
+    border-top: solid 1px #d35400;
     background-color: #ecf0f1;
     height: 50px;
 }
@@ -380,11 +373,7 @@ select
     display: none;
     min-width: 0 !important;
 }
-.mapa_bajo
-{
-    width: calc(42% - 16px) !important;
-    margin-left: calc(60% - 10px) !important;
-}
+
 .buscador-asignacion-boton
 {
     border-top: solid 1px #8a9cb2;
@@ -449,7 +438,7 @@ select
 {
     font-size: 12px;
     color: white;
-    background-color: #a7b9bd;
+    background-color: #f39c12;
     text-align: center;
     float: left;
     padding-left: 10px;
@@ -471,7 +460,7 @@ select
 .boton-chico
 {
     color: white;
-    background-color: #a7b9bd;
+    background-color: #f39c12;
     text-align: center;
     margin-right: 5px;
     width: 30px;
@@ -489,7 +478,7 @@ select
 }
 .boton:hover
 {
-    background-color: #c1d2d5;
+    background-color:  #f8c471 ;
 }
 .boton img
 {
@@ -519,15 +508,14 @@ select
 .fila_contenedor
 {
     font-size: 15px;
-    padding-left: 20px;
-    width: calc(100% - 20px);
+    width: 100%;
     height: 30px;
     line-height: 30px;
     border-bottom: solid 1px white;
 }
 .fila_contenedor:nth-child(even)
 {
-    background-color: #dfe8e8;    
+    background-color: #f4d03f;    
 }
 .fila_contenedor:nth-child(odd)
 {
@@ -544,9 +532,9 @@ select
 }
 .contenedor-info
 {
-    border: solid 1px silver;
+    border: solid 1px #d35400;
     background-color: white;
-    height: calc(100% - 52px);
+    height: calc(100% - 81px);
     padding-top: 20px;
     min-height: 460px;
 }
@@ -562,7 +550,7 @@ select
     cursor: pointer;
     background-color: silver !important;
     border-top: none !important;
-    border-bottom: solid 1px silver;
+    border-bottom: solid 1px #d35400;
 }
 
 .contenedor_oculto
@@ -573,10 +561,10 @@ select
 {
     padding-left: 20px;
     font-size: 20px;
-    color: #0099ff;
+    color: #dc7633;
     width: calc(100% - 20px);
     height: 30px;
-    background-color: #ecf0f1;
+    background-color: #f9e79f;
 }
 .contenedor-titulo
 {
@@ -590,10 +578,9 @@ select
     display: inline-block;
     padding: 5px 20px 5px 20px;
     font-size: 17px;
-    color: #0099ff;
-    border-top: solid 2px #0099ff;
-    border-left: solid 1px silver;
-    border-right: solid 1px silver;
+    color: #dc7633;
+    border-top: solid 2px #d35400;
+    border-right: solid 1px #d35400;
     background-color: white;
 }
 .contenedor-pre-input
@@ -644,17 +631,11 @@ select
     display: inline-block;
     float: left;
 }
-.contenedor-formulario_mapa
-{
-    margin-left: 50px;
-    width: 40%;
-    display: inline-block;
-    float: left;
-}
+
 .contenedor-img
 {
     margin-left: 40px;
-    border: solid 1px silver;
+    border: solid 1px #d35400;
     width: 150px;
     height: 150px;
     display: inline-block;
@@ -672,7 +653,7 @@ select
     padding-top: 100px;
     text-align: center;
     font-size: 20px;
-    color: #a7b9bd;
+    color: #d35400;
 }
 .contenedor-contrato
 {
@@ -920,6 +901,11 @@ select
     width: 70% !important;
     height: 25px !important;   
 }
+.input_asignar_mini
+{
+    width: 20% !important;
+    height: 25px !important;   
+}
 .input_asignar_editar
 {
     position: relative;
@@ -966,7 +952,7 @@ select
     min-height: 90px; 
     max-height: 90px; 
     border-radius: 5px;
-    border: solid 1px silver;
+    border: solid 1px #d35400;
 }
 
 .textarea_asignar2
@@ -978,7 +964,7 @@ select
     min-height: 50px; 
     max-height: 50px; 
     border-radius: 5px;
-    border: solid 1px silver;
+    border: solid 1px #d35400;
 }
 
 .contenedorPartida
@@ -1004,7 +990,7 @@ select
     width: 100%;
     font-size: 15px;
     cursor: pointer;
-    border-bottom: solid 1px silver;
+    border-bottom: solid 1px #d35400;
 }
 .option-datalist:hover
 {
@@ -1144,7 +1130,7 @@ select
 }
 .cont-pasajero-gral
 {
-    border-bottom: solid 1px silver;
+    border-bottom: solid 1px #d35400;
     cursor: pointer;
     height:50px;
 }
@@ -1213,7 +1199,7 @@ select
 .subtitulo_liquidacion
 {
     font-size: 14px;
-    border-top: solid 1px silver;
+    border-top: solid 1px #d35400;
     height: 25px;
     line-height: 25px;
     text-align: center;
@@ -1229,7 +1215,7 @@ select
 }
 .titulo_tabla_liq
 {
-    border: solid 1px silver;
+    border: solid 1px #d35400;
     text-align: center;
     width: 100%;
     font-weight: bold;
@@ -1239,13 +1225,13 @@ select
 {
     width: calc(25% - 3px);
     height: calc(100% - 100px);
-    border: solid 1px silver;
+    border: solid 1px #d35400;
     float: left;
 }
 .detalle_tabla_liq
 {
     font-weight: bold;
-    border: solid 1px silver;
+    border: solid 1px #d35400;
     width: calc(50% - 2px);
     float: left;
 }
@@ -1266,7 +1252,7 @@ select
 {
     padding-top: 40px;
     float: left;
-    width: 80%;
+    width: 100%;
     height: calc(100% - 40px);
 }
 .contenedor-dashboard-cliente
@@ -1315,8 +1301,8 @@ select
     margin: 8px;
     width: 30%;
     background-color: white;
-    height: 200px;
-    border: solid 1px silver;
+    height: 250px;
+    border: solid 1px #d35400;
     min-width: 300px;
 }
 .indicador-titulo
@@ -1393,9 +1379,16 @@ select
 .contenedor_central_titulo div
 {
     font-size: 17px;
-    color:#0099ff;
+    color:#d35400;
     float: left;
-    width: 19%;
+    width: 12%;
+    text-align: center;
+}
+.fila_contenedor_llamada div
+{
+    width: 12%;
+    float: left;
+    width: 12%;
     text-align: center;
 }
 .contenedor_central_titulo_pasajero div
@@ -1455,17 +1448,6 @@ select
 .info-servicio
 {
     height: calc(100% - 140px) !important
-}
-.info-servicio-mapa
-{
-    padding-top: 0 !important;
-    height: calc(100% - 115px);
-}
-    
-.contenedor_mapa
-{
-    width: 100%;
-    height: 100%;
 }
 
 .img_volver
@@ -1556,7 +1538,7 @@ select
     background-color: white;
     padding: 2%;
     width: 36%;
-    border: solid 1px silver;
+    border: solid 1px #d35400;
 }
 
 .extenso
@@ -1618,12 +1600,6 @@ select
     height: auto;
 }
 
-.pasajero_mapa
-{
-    width:100%;
-    height: 450px;
-}
-
 .recargado
 {
     margin-left: 0 !important;
@@ -1666,7 +1642,7 @@ select
     margin-left: 59%;
     height: 50px;
     background-color: #ecf0f1;
-    border-bottom: solid 1px silver;
+    border-bottom: solid 1px #d35400;
 }
 .contenedor_agregar
 {
@@ -1677,21 +1653,13 @@ select
     margin-left: 59%;
     height: 120px;
     background-color: #ecf0f1;
-    border-bottom: solid 1px silver;
+    border-bottom: solid 1px #d35400;
 }
 .contenedor_agregar div
 {
     margin-top: 5px;
 }
 
-.mapa_editar
-{
-    height: calc(100% - 71px);
-}
-.mapa_agregar
-{
-    height: calc(100% - 141px);
-}
 #servicios_pendientes_link
 {
     display: none;
@@ -1808,7 +1776,7 @@ select
 
 .contenedor_produccion_liquidacion
 {
-    border:solid 1px silver;
+    border:solid 1px #d35400;
     width: 33%;
     height: calc(100% - 65px);
     float: left;
@@ -1818,4 +1786,13 @@ select
     width: 75%;
     margin-left: 25%;
     height: auto;
+}
+
+.fila_fecha
+{
+    width: 15% !important;
+}
+.fila_num
+{
+   width: 9% !important;
 }

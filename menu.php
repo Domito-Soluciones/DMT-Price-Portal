@@ -14,158 +14,81 @@
         Dashboard
     </div>
 </div>
-<div class="opcion-menu" id="panel" onclick="cambiarModulo('panel')">
+<div class="opcion-menu" id="tarificacion" onclick="cambiarModulo('tarificacion')">
     <div class="cont-img-menu">
-        <img class="img-menu" src="img/mapa.svg">
+        <img class="img-menu" src="img/moneda.svg">
     </div>
     <div class="contenido-menu">
-        Asignaci&oacute;n
+        Tarificación
     </div>
-    <div class="tooltip" id="tooltip_panel">
-        Asignaci&oacute;n
+    <div class="tooltip" id="tooltip_tarificacion">
+        Tarificación
     </div>
 </div>
-<div class="opcion-menu" id="movil" onclick="cambiarModulo('movil')">
+<div class="opcion-menu" id="llamadas" onclick="cambiarModulo('llamadas')">
     <div class="cont-img-menu">
-        <img class="img-menu" src="img/vehiculo.svg">
+        <img class="img-menu" src="img/llamada.svg">
     </div>
     <div class="contenido-menu">
-        Veh&iacute;culos
+        Llamadas
     </div>
-    <div class="tooltip" id="tooltip_movil">
-        Veh&iacute;culos
+    <div class="tooltip" id="tooltip_llamada">
+        Llamadas
     </div>
 </div>
-<div class="opcion-menu" id="conductor" onclick="cambiarModulo('conductor')">
+<div class="opcion-menu" id="estadistica" onclick="cambiarModulo('estadistica')">
     <div class="cont-img-menu">
-        <img class="img-menu" src="img/conductor.svg">
+        <img class="img-menu" src="img/estadistica.svg">
     </div>
     <div class="contenido-menu">
-        Conductores
+        Estadistica
     </div>
-    <div class="tooltip" id="tooltip_conductor">
-        Conductores
+    <div class="tooltip" id="tooltip_estadistica">
+        Estadistica
     </div>
 </div>
-<div class="opcion-menu" id="cliente" onclick="cambiarModulo('cliente')">
+<div class="opcion-menu" id="extension" onclick="cambiarModulo('extension')">
     <div class="cont-img-menu">
-        <img class="img-menu" src="img/empresa.svg">
+        <img class="img-menu" src="img/extension.svg">
     </div>
     <div class="contenido-menu">
-        Clientes
+        Extensiones
     </div>
-    <div class="tooltip" id="tooltip_cliente">
-        Clientes
-    </div>
-</div>
-<div class="opcion-menu" id="pasajero" onclick="cambiarModulo('pasajero')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/pasajero.svg">
-    </div>
-    <div class="contenido-menu">
-        Pasajeros
-    </div>
-    <div class="tooltip" id="tooltip_pasajero">
-        Pasajeros
-    </div>
-</div>
-<div class="opcion-menu" id="servicios" onclick="cambiarModulo('servicios')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/servicio.svg">
-    </div>
-    <div class="contenido-menu">
-        Servicios
-    </div>
-    <div class="tooltip" id="tooltip_servicios">
-        Servicios
-    </div>
-</div>
-<div class="opcion-menu" id="monitoreo" onclick="cambiarModulo('monitoreo')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/monitorear.svg">
-    </div>
-    <div class="contenido-menu">
-        Monitoreo
-    </div>
-    <div class="tooltip" id="tooltip_monitoreo">
-        Monitoreo
-    </div>
-</div>
-<div class="opcion-menu"  id="reportes" onclick="cambiarModulo('reportes')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/reporte.svg">
-    </div>
-    <div class="contenido-menu">
-        Reportes
-    </div>
-    <div class="tooltip" id="tooltip_reportes">
-        Reportes
-    </div>
-</div>
-<div class="opcion-menu" id="liquidaciones" onclick="cambiarModulo('liquidaciones')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/liquidacion.svg">
-    </div>
-    <div class="contenido-menu">
-        Liquidaciones
-    </div>
-    <div class="tooltip" id="tooltip_liquidaciones">
-        Liquidaciones
-    </div>
-</div>
-<div class="opcion-menu" id="rendiciones" onclick="cambiarModulo('rendiciones')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/rendiciones.svg">
-    </div>
-    <div class="contenido-menu">
-        Rendiciones
-    </div>
-    <div class="tooltip" id="tooltip_rendiciones">
-        Rendiciones
-    </div>
-</div>
-<div class="opcion-menu" id="contrato" onclick="cambiarModulo('contrato')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/contrato.svg">
-    </div>
-    <div class="contenido-menu">
-        Contratos
-    </div>
-    <div class="tooltip" id="tooltip_contrato">
-        Contratos
-    </div>
-</div>
-<div class="opcion-menu" id="tarifa" onclick="cambiarModulo('tarifa')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/ruta.svg">
-    </div>
-    <div class="contenido-menu">
-        Tarifas
-    </div>
-    <div class="tooltip" id="tooltip_tarifa">
-        Tarifas
+    <div class="tooltip" id="tooltip_extension">
+        Extensiones
     </div>
 </div>
 <div class="opcion-menu" id="agente" onclick="cambiarModulo('agente')">
     <div class="cont-img-menu">
+        <img class="img-menu" src="img/agente.svg">
+    </div>
+    <div class="contenido-menu">
+        Agentes
+    </div>
+    <div class="tooltip" id="tooltip_agente">
+        Agentes
+    </div>
+</div>
+<div class="opcion-menu" id="centro_costo" onclick="cambiarModulo('centro_costo')">
+    <div class="cont-img-menu">
+        <img class="img-menu" src="img/centro_costo.svg">
+    </div>
+    <div class="contenido-menu">
+        Centros de Costo
+    </div>
+    <div class="tooltip" id="tooltip_centro_costo">
+        Centros de Costo
+    </div>
+</div>
+<div class="opcion-menu" id="usuario" onclick="cambiarModulo('usuario')">
+    <div class="cont-img-menu">
         <img class="img-menu" src="img/admin.svg">
     </div>
     <div class="contenido-menu">
-        Administradores
+        Usuarios
     </div>
-    <div class=tooltip id="tooltip_agente">
-        Administradores
-    </div>
-</div>
-<div class="opcion-menu" id="configuracion" onclick="cambiarModulo('configuracion')">
-    <div class="cont-img-menu">
-        <img class="img-menu" src="img/configuracion.svg">
-    </div>
-    <div class="contenido-menu">
-        Configuraci&oacute;n
-    </div>
-    <div class=tooltip id="tooltip_configuracion">
-        Configuraci&oacute;n
+    <div class=tooltip id="tooltip_usuario">
+        Usuarios
     </div>
 </div>
 <div class="opcion-menu menu-salir" id="salir" onclick="salir()">
@@ -178,41 +101,4 @@
 </div>
 <?php
     }
-    else
-    {
-?>
-    <div class="opcion-menu" id="home_cliente" onclick="cambiarModulo('home_cliente')">
-        <div class="cont-img-menu">
-            <img class="img-menu" src="img/dashboard.svg">
-        </div>
-        <div class="contenido-menu">
-            DashBoard
-        </div>
-        <div class="tooltip" id="tooltip_home_cliente">
-            DashBoard
-        </div>
-    </div>
-    <div class="opcion-menu" id="panel_cliente" onclick="cambiarModulo('panel_cliente')">
-        <div class="cont-img-menu">
-            <img class="img-menu" src="img/mapa.svg">
-        </div>
-        <div class="contenido-menu">
-            Asignaci&oacute;n
-        </div>
-        <div class="tooltip" id="tooltip_panel">
-            Asignaci&oacute;n
-        </div>
-    </div>
-    <div class="opcion-menu" id="servicios" onclick="cambiarModulo('servicios')">
-        <div class="cont-img-menu">
-            <img class="img-menu" src="img/servicio.svg">
-        </div>
-        <div class="contenido-menu">
-            Servicios
-        </div>
-        <div class="tooltip" id="tooltip_panel">
-            Servicios
-        </div>
-    </div>
-<?php
-    }
+     

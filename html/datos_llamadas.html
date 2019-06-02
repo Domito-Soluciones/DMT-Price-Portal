@@ -1,0 +1,157 @@
+<div class="titulo_pagina">
+    <img src="img/atras.svg" class="img_volver" id="volver"> Informaci&oacute;n Servicio 
+    <div class="valor_titulo" id="titulo_pagina_servicio"></div>
+</div>
+<div class="contenedor-titulo">
+    <div class="titulo_pagina_general" id="p_general">
+        1. General
+    </div>
+    <div class="titulo_pagina_general dispose" id="p_pasajero">
+        2. Pasajeros
+    </div>
+    <div class="titulo_pagina_general dispose" id="p_ruta">
+        3. Ruta
+    </div>
+    <div class="titulo_pagina_general dispose" id="p_obs">
+        4. Observaciones
+    </div>
+</div>
+<div class="contenedor-info info-servicio general" id="cont_general">
+    <div class="contenedor-formulario">
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Id Servicio
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="idServicio" maxlength="20" readonly>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Empresa
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="clienteServicio" list="lcliente" placeholder="Ej: Falabella" maxlength="20" readonly>
+                <datalist id="lcliente"></datalist>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Ruta
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="rutaServicio" list="lruta" placeholder="Ej: Ruta 1" maxlength="20">
+                <datalist id="lruta"></datalist>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Tipo Ruta
+            </div>
+            <div class="contenedor-input">
+                <select id="tipoRutaServicio">
+                    <option value="RG-MAN">Recogida / Mañana</option>
+                    <option value="RG-TAR">Recogida / Tarde</option>
+                    <option value="RG-NOC">Recogida / Noche</option>
+                    <option value="ZP-MAN">Reparto / Mañana</option>
+                    <option value="ZP-TAR">Reparto / Tarde</option>
+                    <option value="ZP-NOC">Reparto / Noche</option>
+                    <option value="XX-ESP">Especial</option>
+                </select>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Fecha
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="fechaServicio" placeholder="Ej: 23/12/2005" maxlength="20">
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Hora Inicio
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="inicioServicio" placeholder="Ej: 15:34" maxlength="5">  
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Estado
+            </div>
+            <div class="contenedor-input">
+                <select id="estadoServicio">
+                    <option value="1">En asignación</option>
+                    <option value="3">Asignado</option>
+                    <option value="4">En Ruta</option>
+                    <option value="5">Finalizado</option>
+                    <option value="6">Cancelado</option>
+                </select>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Veh&iacute;culo
+            </div>
+            <div class="contenedor-input">
+                <select id="movilServicio">
+                    <option value="">Seleccione</option>
+                </select>
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Conductor
+            </div> 
+            <div class="contenedor-input">
+                <input type="text" id="conductorServicio" placeholder="Ej: Juan Perez" maxlength="20" readonly>
+            </div>
+        </div>
+        <div class="contenedor-fila"  id="contTarifa1">
+            <div class="contenedor-pre-input-conductor">
+                Tarifa 1
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="tarifaServicio" placeholder="Ej: Juan Perez" maxlength="20">
+            </div>
+        </div>
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input-conductor">
+                Tarifa 2
+            </div>
+            <div class="contenedor-input">
+                <input type="text" id="tarifa2Servicio" placeholder="Ej: Juan Perez" maxlength="20">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contenedor-info info-servicio contenedor_oculto contenedor-info-servicio" id="cont_pasajero">
+    <div class="titulo_pasajero">
+        <div class="letra_pasajero">#</div>
+        <div class="nombre_pasajero">
+            Pasajero
+        </div>
+        <div class="dir_pasajero">
+            Destino
+        </div>
+        <div class="dato_pasajero">
+            Hora Destino
+        </div>
+        <div class="est_pasajero">
+            Estado
+        </div>
+    </div>
+    <div class="pasajeros_contenido" id="pasajeros_contenido">
+        
+    </div>
+</div>
+<div class="contenedor-info info-servicio contenedor_oculto contenedor-info-servicio" id="cont_obs">
+    
+</div>
+<div class="pie-left">
+    <div class="boton" id="guardar">
+        <img src="img/guardar.svg" width="12" height="12">
+        Guardar
+    </div>  
+</div>

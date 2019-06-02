@@ -1,61 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <script src="js/tarifa.js" type="text/javascript"></script>
+        <script src="js/tarifa_funciones.js" type="text/javascript"></script>
+    </head>
     <body>
-        <div class="contenedor_central">
-            <div class="fecha" id="fecha">
+        <div class="contenedor-lateral">
+            <div class="buscador">
+                Buscar: <input type="text" id="busqueda">                    
+            </div>
+            <div class="buscador_titulo">
+                Tarifas
+            </div>
+            <div id="lista_busqueda_tarifa" class="lista_busqueda">
+            </div>
+            <div id="mensaje-error" class="mensaje-error">
 
             </div>
-            <div class="panel1">
-                <div class="totales" id="totales">
-                    <div class="cont-total">
-                        <div id="total" class="total"></div>                        
-                    </div>
-                    <table class="tabla-est" id="servicios">
-                        <thead>
-
-                        </thead>   
-                        <tbody>
-
-                        </tbody>
-                    </table>
-
-        <!--                    agregar grafico total servicios del dia de dona
-                    total servicos del dia: 15
-                    tipos de servicos (titulo)
-                        recogida: 12
-                        reparto:  1
-                        servicio especial: 3   
-                         colores grsfico numeros en amrillo y color grafico naranjo-->
-                </div>
-                <div class="conductores" id="conductores">
-                    <canvas id="myChart" width="200" height="200"></canvas>                 
-        <!--                    agregar grafico conductores de barra
-                    total servicos del dia: 15
-                    tipos de servicos (titulo)
-                        recogida: 12
-                        reparto:  1
-                        servicio especial: 3   -->
+        </div>
+        <div class="contenedor_central" id="contenedor_central">
+            <div id="lista_busqueda_tarifa_detalle" class="lista_busqueda_extendida">
+            </div>
+        </div>
+        <div class="pie pie-extenso">
+            <div class="pie-left">
+                <div class="boton oculto" id="agregar">
+                    <img src="img/anadir.svg" width="12" height="12">
+                    A&ntilde;adir
                 </div>
             </div>
-            <div class="panel2">
-                <div class="centro" id="centro">
-                    <canvas id="pie-chart" width="800" height="450"></canvas>
+            <div class="pie-center">
+                <div class="boton oculto" id="guardar">
+                    <img src="img/guardar.svg" width="12" height="12">
+                    Guardar
                 </div>
             </div>
-            <div class="panel3">
-                <div  class="activos" id="activos">
-                    <canvas id="chart" height="150" width="100"></canvas>
-                    <table class="tabla-est" id="activos">
-                        <thead>
-
-                        </thead>   
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div  class="lista" id="lista">
+            <div class="pie-right">
+                <div class="boton oculto" id="eliminar2">
+                    <img src="img/eliminar.svg" width="12" height="12">
+                    Eliminar
                 </div>
             </div>
         </div>

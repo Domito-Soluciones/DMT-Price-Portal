@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-    include 'source/util/redireccionarHttps.php';
-?>
 <html>
     <head>
         <title>
@@ -30,7 +27,7 @@
     </head>
     <body>
         <div class="img-login">
-            <img src="img/logo.png">
+            <!--<img src="img/logo.png">-->
         </div>
         <div class="login">
             <div class="contenedor-login">

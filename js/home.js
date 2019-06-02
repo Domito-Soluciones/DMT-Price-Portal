@@ -5,16 +5,6 @@ var options = {};
 $(document).ready(function(){
     PAGINA_ANTERIOR = PAGINA;
     getDashBoard();
-    validarServicios();
-    
-    $("#servicios_pendientes_link").click(function(){
-        mostrarServiciosPendientes();
-    });
-    
-    $("#botonCancelar").click(function(){
-        ocultarServiciosPendientes();
-    });
-    
 });
 
 function generarGraficoDona(canvas,data,options)
@@ -65,15 +55,6 @@ function getDashBoard()
     postRequest(url,params,success);
 }
 
-function mostrarServiciosPendientes()
-{
-    cambiarPropiedad($(".contenedor-servicios"),"display","initial");
-}
-function ocultarServiciosPendientes()
-{
-    cambiarPropiedad($(".contenedor-servicios"),"display","none");
-}
-
 function generarGraficoBarra(canvas,data,options)
 {
     new Chart(canvas, {
@@ -83,10 +64,3 @@ function generarGraficoBarra(canvas,data,options)
     });
 }
 
-
-    
-function abrirServicio(ids,clientes,ruta,fechas,hora,observacion)
-{
-    ASIGNANDO = true;
-    cambiarModulo('panel',{ids:ids,clientes:clientes,ruta:ruta,fechas:fechas,hora:hora,observacion:observacion});
-}

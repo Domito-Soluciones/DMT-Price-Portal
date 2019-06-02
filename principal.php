@@ -1,7 +1,6 @@
 <?php
-include 'source/util/redireccionarHttps.php';
 session_start(); 
-if(!isset($_SESSION['agente']))
+if(!isset($_SESSION['usuario']))
 {
     header('Location: index.php');
 }
@@ -19,7 +18,6 @@ if(!isset($_SESSION['agente']))
         <meta http-equiv="Last-Modified" content="0">
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
         <meta http-equiv="Pragma" content="no-cache">
-<!--        <meta http-equiv="Content-Security-Policy" content="default-src https:">-->
         <link rel="stylesheet" href="css/lib/alertify.css">
         <link rel="stylesheet" href="css/lib/jquery.datetimepicker.css">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
@@ -34,18 +32,17 @@ if(!isset($_SESSION['agente']))
         <script src="js/lib/moments.js" type="text/javascript"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
         <script src="js/principal.js" type="text/javascript"></script>
-        <script src="js/asignacion.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="cabecera" id="cabecera">
             <div class="btn-menu" id="btn_menu">
-                <img src="img/menu.svg" id="btn_menu_img" width="20" height="20" alt="GoTransfer" title="GoTransfer">
+                <img src="img/menu.svg" id="btn_menu_img" width="20" height="20" alt="DMT-Price" title="DMT-Price">
             </div>
             <div class="img-logo" >
-                <img src="img/furgoneta.png" width="50" height="35" alt="GoTransfer" title="GoTransfer">
+                <img src="img/moneda.png" width="35" height=35 alt="DMT-Price" title="DMT-Price">
             </div>
             <div class="titulo">
-                GoTransfer - Admin    
+                DMT-Price - Admin    
             </div>
             <div class="logOut" id="logOut">
                 <a class="enlace-salir" id="enlace_usuario"></a>
