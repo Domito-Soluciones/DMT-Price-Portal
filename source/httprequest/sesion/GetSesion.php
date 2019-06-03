@@ -12,11 +12,11 @@ echo "[";
 for ($i = 0 ; $i < count($usuarios); $i++)
 {
     $cId = $usuarios[$i]->getId();
-    $nombre = $usuarios[$i]->getNombre();
-    $descripcion = $usuarios[$i]->getDescripcion();
+    $nick = $usuarios[$i]->getNick();
+    $perfil = $usuarios[$i]->getPerfil();
     echo "{\"usuario_id\":\"".$cId."\","
-        . "\"usuario_nombre\":\"".$nombre."\","
-        . "\"usuario_descripcion\":\"".$descripcion."\""
+        . "\"usuario_nick\":\"".$nick."\","
+        . "\"usuario_perfil\":\"".$perfil."\""
         . "}";
     if (($i+1) != count($usuarios))
     {

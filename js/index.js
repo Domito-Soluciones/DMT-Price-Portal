@@ -24,14 +24,14 @@ function login(){
         alertify.error("Ingrese usuario y password");
         return;
     }
-    var url = urlBase + "/usuario/Login.php";
+    var url = urlBase + "/sesion/Login.php";
     var params = { usuario: usuario, password : (password)};
     var success = function(response){
-        if(response.usuario_id === 0)
+        if(response.sesion_id === 0)
         {
             alertify.error("Usuario y/o password no coinciden");
         }
-        else if(parseInt(response.usuario_id) > 0)
+        else if(parseInt(response.sesion_id) > 0)
         {
             redireccionar("principal.php");
         }

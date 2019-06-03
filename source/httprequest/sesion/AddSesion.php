@@ -2,15 +2,18 @@
 include '../../util/validarPeticion.php';
 include '../../util/validarSession.php';
 include '../../query/UsuarioDao.php';
+include '../../cripto/Cripto.php';
 include '../../log/Log.php';
 
 header('Content-Type: application/json');
-$nombre = filter_input(INPUT_POST, 'nombre');
-$descripcion = filter_input(INPUT_POST, 'descripcion');
+$nick = filter_input(INPUT_POST, 'nick');
+$password = base64_encode(Cripto::encriptar(filter_input(INPUT_POST, 'password')));
+$perfil = filter_input(INPUT_POST, 'perfil');
 $usuario = new Usuario();
-$usuario->setNombre($nombre);
-$usuario->setDescripcion($descripcion);
+$usuario->setNick($nick);
+$usuario->setClave($password);
+$usuario->setPerfil($perfil);
 $usuarioDao = new UsuarioDao();
 $usuarioId = $usuarioDao->agregarUsuario($usuario);
-echo "{\"usuario_id\":\"".$usuarioId."\"}";
+echo "{\"cliente_id\":\"".$usuarioId."\"}";
 Log::write_log("ADDUSUARIO", 0);

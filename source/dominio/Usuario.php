@@ -1,47 +1,34 @@
 <?php
-include '../../util/validarPeticion.php';
 
 class Usuario {
     private $id;
-    private $nick;
-    private $clave;
-    private $perfil;
-
+    private $nombre;
+    private $descripcion;
+    
     function getId() {
         return $this->id;
     }
 
-    function getNick() {
-        return $this->nick;
+    function getNombre() {
+        return $this->nombre;
     }
 
-    function getClave() {
-        return $this->clave;
-    }
-
-    function getPerfil() {
-        return $this->perfil;
+    function getDescripcion() {
+        return $this->descripcion;
     }
 
     function setId($id) {
         $this->id = $id;
     }
 
-    function setNick($nick) {
-        $this->nick = $nick;
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
     }
 
-    function setClave($clave) {
-        $this->clave = $clave;
+    function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
     }
 
-    function setPerfil($perfil) {
-        $this->perfil = $perfil;
-    }
-
-    public function toString() {
-        return "DATOS USUARIO: ID : ".$this->id." NICK : ".$this->nick.
-                " CLAVE : ".$this->clave." PERFIL : ".$this->perfil;
-    }
+   
 
 }

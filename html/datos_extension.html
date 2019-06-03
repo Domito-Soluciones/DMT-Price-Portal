@@ -1,29 +1,24 @@
-<div class="titulo_pagina" id="titulo_tarifa">
-    <img src="img/atras.svg" class="img_volver" id="volver"> Informaci&oacute;n Tarifa
+<div class="titulo_pagina" id="titulo_extensión">
+    <img src="img/atras.svg" class="img_volver" id="volver"> Informaci&oacute;n Extensión
 </div>
-<div class="contenedor-titulo" id="contenedor_tarifa">
+<div class="contenedor-titulo" id="contenedor_extensión">
     <div class="titulo_pagina_general" id="p_general">
         1. General
     </div>
 </div>
-<div class="contenedor-info general cont-tarifa" id="cont_general">
+<div class="contenedor-info general cont-extensión" id="cont_general">
     <div class="contenedor-formulario">
         <div class="contenedor-fila">
-            <input type="hidden" id="clientes">
             <div class="contenedor-pre-input">
-                Tipo (*)
+                Extensión (*)
             </div>
             <div class="contenedor-input">
-                <select id="tipo">
-                    <option value="">Seleccione</option>
-                    <option value="ZP">Reparto</option>
-                    <option value="RG">Recogida</option>
-                </select>
+                <input type="text" id="extension" placeholder="Ej: 57344" maxlength="20">
             </div>
         </div>
         <div class="contenedor-fila">
             <div class="contenedor-pre-input">
-                Horario (*)
+                Descripción (*)
             </div>
             <div class="contenedor-input">
                 <select id="horario">
@@ -34,73 +29,9 @@
                 </select>
             </div>
         </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Nombre (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="descripcion" placeholder="Ej: Ruta 1" maxlength="20">
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Número (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="numero" placeholder="Ej: 1" maxlength="5">
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Hora (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="hora" placeholder="Ej: 23:54" maxlength="20">
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Descripción (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="nombre" placeholder="Ej: Entel-RG-MAN" maxlength="20" readonly>
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Origen
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="origen" placeholder="Ej: Sotomayor 234" maxlength="20">
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Destino
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="destino" placeholder="Ej: Vergara 123" maxlength="20">
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Tarifa 1 (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="valor1" placeholder="Ej: 2200" maxlength="10">                    
-            </div>
-        </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Tarifa 2 (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="text" id="valor2" placeholder="Ej: 1200" maxlength="20">
-            </div>
-        </div>
     </div>
 </div>
-<div class="pie-tarifa">
+<div class="pie-extensión">
     <div class="pie-center">
         <div class="boton oculto" id="guardar">
             <img src="img/guardar.svg" width="12" height="12">

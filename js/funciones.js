@@ -573,7 +573,7 @@ function marcarCampoDisabled(campo)
 
 function salir()
 {
-    var url = urlBase + "/usuario/Logout.php";
+    var url = urlBase + "/sesion/Logout.php";
     var success = function()
     {
         window.location.href = "index.php";

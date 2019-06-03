@@ -1,50 +1,42 @@
-<div class="titulo_pagina">
-    Informaci&oacute;n Usuario
+<div class="titulo_pagina" id="titulo_tarifa">
+    <img src="img/atras.svg" class="img_volver" id="volver"> Informaci&oacute;n Usuario
 </div>
-<div class="contenedor-titulo">
+<div class="contenedor-titulo" id="contenedor_tarifa">
     <div class="titulo_pagina_general" id="p_general">
         1. General
     </div>
 </div>
-<div class="contenedor-info contenedor_usuario" id="cont_general">
+<div class="contenedor-info general cont-tarifa" id="cont_general">
     <div class="contenedor-formulario">
         <div class="contenedor-fila">
             <div class="contenedor-pre-input">
-                Nick (*)
+                Nombre (*)
             </div>
             <div class="contenedor-input">
-                <input type="password" id="nick_" style="display: none">
-                <input type="text" class="input-formulario" id="nick" placeholder="Ej: atorres" maxlength="20">
+                <input type="text" id="descripcion" placeholder="Ej: Juan Perez" maxlength="20">
             </div>
         </div>
         <div class="contenedor-fila">
             <div class="contenedor-pre-input">
-                Password (*)
+                Descripción (*)
             </div>
             <div class="contenedor-input">
-                <input type="password" id="password_" style="display: none">
-                <input type="password" class="input-formulario" id="password" placeholder="Password" maxlength="20" autocomplete="off">
+                <input type="text" id="descripcion" placeholder="Ej: Gerente" maxlength="20">
             </div>
         </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Repite Password (*)
-            </div>
-            <div class="contenedor-input">
-                <input type="password" class="input-formulario" id="password2" placeholder="Repite Password" maxlength="20" autocomplete="off">
-            </div>
+    </div>
+</div>
+<div class="pie-tarifa">
+    <div class="pie-center">
+        <div class="boton oculto" id="guardar">
+            <img src="img/guardar.svg" width="12" height="12">
+            Guardar
         </div>
-        <div class="contenedor-fila">
-            <div class="contenedor-pre-input">
-                Perfil (*)
-            </div>
-            <div class="contenedor-input">
-                <select id="perfil" class="select-formulario">
-                    <option value="">Seleccione</option>
-                    <option value="0">Administrador</option>
-                    <option value="1">Supervisor</option>
-                </select>
-            </div>
+    </div>
+    <div class="pie-right">
+        <div class="boton oculto" id="eliminar">
+            <img src="img/eliminar.svg" width="12" height="12">
+            Eliminar
         </div>
     </div>
 </div>

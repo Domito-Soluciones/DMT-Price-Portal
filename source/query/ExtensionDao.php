@@ -1,74 +1,38 @@
 <?php
 include '../../util/validarPeticion.php';
 include '../../conexion/Conexion.php';
-include '../../dominio/Tarifa.php';
+include '../../dominio/Extension.php';
 
-class TarifaDao {
+class ExtensionDao {
     
-    public function getTarifas($busqueda)
+    public function getExtensiones($busqueda)
     {
         $array = array();
         $conn = new Conexion();
         try {
-            $query = "SELECT * FROM tbl_tarifa WHERE tarifa_cliente LIKE '%".$busqueda."%' LIMIT 20";
+            $query = "SELECT * FROM tbl_extension WHERE extension_numero LIKE '%".$busqueda."%' OR descripcion LIKE '%".$busqueda."%' LIMIT 20";
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die; 
             while($row = mysqli_fetch_array($result)) {
-                $tarifa = new Tarifa();
-                $tarifa->setId($row["tarifa_id"]);
-                $tarifa->setDescripcion($row["tarifa_descripcion"]);
-                $tarifa->setNumero($row["tarifa_numero"]);
-                $tarifa->setHora($row["tarifa_hora"]);
-                $tarifa->setNombre($row["tarifa_nombre"]);
-                $tarifa->setOrigen($row["tarifa_origen"]);
-                $tarifa->setDestino($row["tarifa_destino"]);
-                $tarifa->setValor1($row["tarifa_valor1"]);
-                $tarifa->setValor2($row["tarifa_valor2"]);
-                $tarifa->setCliente($row["tarifa_cliente"]);
-                $tarifa->setTipo($row["tarifa_tipo"]);
-                $tarifa->setHorario($row["tarifa_horario"]);
-                array_push($array, $tarifa);
+                $extension = new Extension();
+                $extension->setId($row["extension_id"]);
+                $extension->setNumero($row["extension_numero"]);
+                $extension->setDescripcion($row["extension_descripcion"]);
+                $extension->setParticion($row["extension_particion"]);
+                array_push($array, $extension);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
         return $array;
     }
-    public function getTarifasEmpresa($empresa)
-    {
-        $array = array();
-        $conn = new Conexion();
-        try {
-            $query = "SELECT * FROM tbl_tarifa WHERE tarifa_cliente = '".$empresa."'";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die; 
-            while($row = mysqli_fetch_array($result)) {
-                $tarifa = new Tarifa();
-                $tarifa->setId($row["tarifa_id"]);
-                $tarifa->setDescripcion($row["tarifa_descripcion"]);
-                $tarifa->setNumero($row["tarifa_numero"]);
-                $tarifa->setHora($row["tarifa_hora"]);
-                $tarifa->setNombre($row["tarifa_nombre"]);
-                $tarifa->setOrigen($row["tarifa_origen"]);
-                $tarifa->setDestino($row["tarifa_destino"]);
-                $tarifa->setValor1($row["tarifa_valor1"]);
-                $tarifa->setValor2($row["tarifa_valor2"]);
-                $tarifa->setCliente($row["tarifa_cliente"]);
-                $tarifa->setTipo($row["tarifa_tipo"]);
-                $tarifa->setHorario($row["tarifa_horario"]);
-                array_push($array, $tarifa);
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $array;
-    }
-    function eliminarTarifa($nombre)
+   
+    function eliminarExtension($idExtension)
     {
         $id = 0;
         $conn = new Conexion();
         try {
-            $query = "DELETE FROM tbl_tarifa WHERE tarifa_nombre = '$nombre'"; 
+            $query = "DELETE FROM tbl_extension WHERE extension_id = '$idExtension'"; 
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);
@@ -81,25 +45,16 @@ class TarifaDao {
         return $id;
     }
     
-    public function agregarTarifa($tarifa)
+    public function agregarExtension($extension)
     {
         $id = 0;
-        $descripcion = $tarifa->getDescripcion();
-        $numero = $tarifa->getNumero();
-        $hora = $tarifa->getHora();
-        $nombre = $tarifa->getNombre();
-        $origen = $tarifa->getOrigen();
-        $destino = $tarifa->getDestino();
-        $valor1 = $tarifa->getValor1();
-        $valor2 = $tarifa->getValor2();
-        $cliente = $tarifa->getCliente();
-        $tipo = $tarifa->getTipo();
-        $horario = $tarifa->getHorario();
+        $numero = $extension->getNumero();
+        $descripcion = $extension->getDescripcion();
+        $particion = $extension->getParticion();
         $conn = new Conexion();
         try {
-            $query = "INSERT INTO tbl_tarifa (tarifa_descripcion,tarifa_numero,tarifa_hora,tarifa_nombre,tarifa_origen,"
-                    . "tarifa_destino,tarifa_valor1,tarifa_valor2,tarifa_cliente,tarifa_tipo,tarifa_horario) VALUES "
-                    . "('$descripcion','$numero','$hora','$nombre','$origen','$destino','$valor1','$valor2','$cliente','$tipo','$horario')";
+            $query = "INSERT INTO tbl_extension (extension_numero,extension_descripcion,extension_particion) VALUES "
+                    . "('$numero','$descripcion','$particion')";
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);
@@ -112,26 +67,16 @@ class TarifaDao {
         return $id;
     }
     
-    public function modificarTarifa($tarifa)
+    public function modificarExtension($extension)
     {
-        $id = $tarifa->getId();
-        $descripcion = $tarifa->getDescripcion();
-        $numero = $tarifa->getNumero();
-        $hora = $tarifa->getHora();
-        $nombre = $tarifa->getNombre();
-        $origen = $tarifa->getOrigen();
-        $destino = $tarifa->getDestino();
-        $valor1 = $tarifa->getValor1();
-        $valor2 = $tarifa->getValor2();
-        $cliente = $tarifa->getCliente();
-        $tipo = $tarifa->getTipo();
-        $horario = $tarifa->getHorario();
+        $id = $extension->getId();
+        $numero = $extension->getNumero();
+        $descripcion = $extension->getDescripcion();
+        $particion = $extension->getParticion();
         $conn = new Conexion();
         try {
-            $query = "UPDATE tbl_tarifa SET tarifa_descripcion = '$descripcion',tarifa_numero = '$numero',tarifa_hora = '$hora',tarifa_origen = '$origen',"
-                    . " tarifa_destino = '$destino',tarifa_valor1 = $valor1,tarifa_valor2 = $valor2,"
-                    . " tarifa_cliente = '$cliente',tarifa_tipo = '$tipo', tarifa_horario = '$horario',"
-                    . " tarifa_nombre = '$nombre' WHERE tarifa_id = $id";       
+            $query = "UPDATE tbl_extension SET extension_numero = '$numero',extension_descripcion = '$descripcion',"
+                    . "extension_particion = '$particion' WHERE extension_id = $id";       
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);

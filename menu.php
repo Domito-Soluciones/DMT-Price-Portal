@@ -58,15 +58,15 @@
         Extensiones
     </div>
 </div>
-<div class="opcion-menu" id="agente" onclick="cambiarModulo('agente')">
+<div class="opcion-menu" id="usuario" onclick="cambiarModulo('usuario')">
     <div class="cont-img-menu">
         <img class="img-menu" src="img/agente.svg">
     </div>
     <div class="contenido-menu">
-        Agentes
+        Usuarios
     </div>
-    <div class="tooltip" id="tooltip_agente">
-        Agentes
+    <div class="tooltip" id="tooltip_usuario">
+        Usuarios
     </div>
 </div>
 <div class="opcion-menu" id="centro_costo" onclick="cambiarModulo('centro_costo')">
@@ -80,15 +80,15 @@
         Centros de Costo
     </div>
 </div>
-<div class="opcion-menu" id="usuario" onclick="cambiarModulo('usuario')">
+<div class="opcion-menu" id="sesion" onclick="cambiarModulo('sesion')">
     <div class="cont-img-menu">
         <img class="img-menu" src="img/admin.svg">
     </div>
     <div class="contenido-menu">
-        Usuarios
+        Sesiones
     </div>
-    <div class=tooltip id="tooltip_usuario">
-        Usuarios
+    <div class=tooltip id="tooltip_sesion">
+        Sesiones
     </div>
 </div>
 <div class="opcion-menu menu-salir" id="salir" onclick="salir()">
