@@ -4,7 +4,6 @@ var EXTENSIONES;
 var AGREGAR = true;
 var PAGINA = 'EXTENSIONES';
 var CAMPOS = ["tipo","horario","descripcion","numero","hora","nombre","valor1","valor2"];
-var USUARIOS;
 $(document).ready(function(){
     PAGINA_ANTERIOR = PAGINA;
     buscarUsuarios();
@@ -74,9 +73,8 @@ var busqueda = $("#busqueda").val();
     var success = function(response)
     {
         cerrarSession(response);
-        var usuarios = $("#lista_busqueda_extension");
-        usuarios.html("");
-        USUARIOS = response;
+        var extensiones = $("#lista_busqueda_extension");
+        extensiones.html("");
         if(response.length === 0)
         {
             alertify.error("No hay registros que mostrar");
