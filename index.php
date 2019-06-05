@@ -27,7 +27,7 @@
     </head>
     <body>
         <div class="img-login">
-            <!--<img src="img/logo.png">-->
+            <img src="img/moneda.svg">
         </div>
         <div class="login">
             <div class="contenedor-login">

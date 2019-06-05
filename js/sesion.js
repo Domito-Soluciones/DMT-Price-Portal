@@ -138,7 +138,7 @@ function buscarSesion()
 {
     var busqueda = $("#busqueda").val();
     var params = {busqueda : busqueda};
-    var url = urlBase + "/sesion/GetSesions.php";
+    var url = urlBase + "/sesion/GetSesiones.php";
     var success = function(response)
     {
         cerrarSession(response);

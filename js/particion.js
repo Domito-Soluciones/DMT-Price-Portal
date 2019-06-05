@@ -1,19 +1,19 @@
 /* global urlBase, alertify, NOMBRE_CLIENTE, ID_CLIENTE */
 var ID_EXTENSION;
-var EXTENSIONES;
+var PARTICIONES;
 var CATEGORIA = 0;
 var AGREGAR = true;
-var PAGINA = 'EXTENSIONES';
-var CAMPOS = ["numero","descripcion","categoria"];
+var PAGINA = 'PARTICIONES';
+var CAMPOS = ["nombre","descripcion","valor","categoria"];
 $(document).ready(function(){
     PAGINA_ANTERIOR = PAGINA;
-    buscarExtensiones(true);
+    buscarParticiones(true);
     $("#agregar").click(function(){
         AGREGAR = true;
-        $("#lista_busqueda_extension_detalle").load("html/datos_extension.html", function( response, status, xhr ) {
+        $("#lista_busqueda_particion_detalle").load("html/datos_particion.html", function( response, status, xhr ) {
             cambioEjecutado();
             $("#volver").click(function(){
-                buscarExtensiones(true);
+                buscarParticiones(true);
                 resetBotones();
             });
         });
@@ -21,47 +21,47 @@ $(document).ready(function(){
     });
 
     $("#busqueda").keyup(function(){
-        buscarExtensiones();
+        buscarParticiones();
     });
                 
     $("#guardar").click(function (){
         if(AGREGAR){
-            agregarExtension();
+            agregarParticion();
         }
         else{
-            modificarExtension();
+            modificarParticion();
         }
     });
     
     $("#eliminar").click(function(){
         confirmar("Eliminar extensión","Esta seguro que desea eliminar la extensión "+$("#numero").val(),
         function(){
-            eliminarExtension();
+            eliminarParticion();
             },null);
     });
 });
 
-function buscarExtensiones(cargar = false)
+function buscarParticiones(cargar = false)
 {
-    var categorias = $("#lista_busqueda_extension");
+    var categorias = $("#lista_busqueda_particion");
     categorias.html("");
     categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_0\" onClick=\"cambiarFilaCategoria(0)\">Todo</div>");
     categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_1\" onClick=\"cambiarFilaCategoria(1)\">Gerencia</div>");
     categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_2\" onClick=\"cambiarFilaCategoria(2)\">Administrativo</div>");
     categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_3\" onClick=\"cambiarFilaCategoria(3)\">Operacional</div>");
     marcarFilaActiva("col_"+CATEGORIA);
-    $("#lista_busqueda_extension_detalle").html("");
+    $("#lista_busqueda_particion_detalle").html("");
     var busqueda = $("#busqueda").val();
     var categoria = CATEGORIA;
     var params = {busqueda : busqueda, categoria : categoria};
-    var url = urlBase + "/extension/GetExtensiones.php";
+    var url = urlBase + "/particion/GetParticiones.php";
     var success = function(response)
     {
         cerrarSession(response);
-        var extensiones = $("#lista_busqueda_extension_detalle");
-        extensiones.html("");
-        EXTENSIONES = response;
-        extensiones.append("<div class=\"contenedor_central_titulo_extension\"><div>ID</div><div>Extensión</div><div>Descripción</div><div>Usuario</div><div></div></div>");
+        var particiones = $("#lista_busqueda_particion_detalle");
+        particiones.html("");
+        PARTICIONES = response;
+        particiones.append("<div class=\"contenedor_central_titulo_extension\"><div>ID</div><div>Nombre</div><div>Descripción</div><div>Valor</div><div></div></div>");
         if(response.length === 0)
         {
             alertify.error("No hay registros que mostrar");
@@ -69,17 +69,17 @@ function buscarExtensiones(cargar = false)
         }
         for(var i = 0 ; i < response.length; i++)
         {
-            var extension = response[i];
-            var id = extension.extension_id;
-            var numero = extension.extension_numero;
-            var descripcion = extension.extension_descripcion;
-            var usuario = extension.extension_usuario === '' ? 'No Asignado' : extension.extension_usuario;
-            extensiones.append("<div class=\"fila_contenedor fila_contenedor_extension_detalle\" id=\""+id+"\" \">"+
-                    "<div onClick=\"abrirModificar("+id+",'"+numero+"')\">"+id+"</div>"+
-                    "<div onClick=\"abrirModificar("+id+",'"+numero+"')\">"+numero+"</div>"+
-                    "<div onClick=\"abrirModificar("+id+",'"+numero+"')\">"+descripcion+"</div>"+
-                    "<div onClick=\"abrirModificar("+id+",'"+numero+"')\">"+usuario+"</div>"+                    
-                    "<div><img onclick=\"preEliminarExtension("+id+",'"+numero+"')\" src=\"img/eliminar-negro.svg\" width=\"12\" height=\"12\"></div>"+
+            var particion = response[i];
+            var id = particion.particion_id;
+            var nombre = particion.particion_nombre;
+            var descripcion = particion.particion_descripcion;
+            var valor = particion.particion_valor;
+            particiones.append("<div class=\"fila_contenedor fila_contenedor_extension_detalle\" id=\""+id+"\" \">"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+id+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+nombre+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+descripcion+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+valor+"</div>"+                    
+                    "<div><img onclick=\"preEliminarParticion("+id+",'"+nombre+"')\" src=\"img/eliminar-negro.svg\" width=\"12\" height=\"12\"></div>"+
                     "</div>");
         }
     };
@@ -95,14 +95,14 @@ function cambiarFilaCategoria(id){
         "¿Desea cambiar de extensión sin guardar los cambios?",
         function(){
             MODIFICADO = false;
-            buscarExtensiones(true);
+            buscarParticiones(true);
         },
         function(){
             MODIFICADO = true;
         });
     }
     else{
-        buscarExtensiones(true);
+        buscarParticiones(true);
     }
 }
 
@@ -110,31 +110,31 @@ function abrirModificar(id,nombre)
 {
     ID_EXTENSION = id;
     AGREGAR = false;
-    $("#lista_busqueda_extension_detalle").load("html/datos_extension.html", function( response, status, xhr ) {
-        $("#titulo_pagina_extension").text(id + " ("+nombre+")");
+    $("#lista_busqueda_particion_detalle").load("html/datos_particion.html", function( response, status, xhr ) {
+        $("#titulo_pagina_particion").text(id + " ("+nombre+")");
         cambioEjecutado();
         $("#volver").click(function(){
-            buscarExtensiones(true);
+            buscarParticiones(true);
             resetBotones();
         });
        
-        var extension;
-        for(var i = 0 ; i < EXTENSIONES.length; i++)
+        var particion;
+        for(var i = 0 ; i < PARTICIONES.length; i++)
         {
-            if(EXTENSIONES[i].extension_id === id)
+            if(PARTICIONES[i].particion_id === id)
             {
-                extension = EXTENSIONES[i];
+                particion = PARTICIONES[i];
             }
         }
-        $("#numero").val(extension.extension_numero);
+        $("#numero").val(particion.particion_numero);
         $("#numero").prop("readonly",true);
-        $("#descripcion").val(extension.extension_descripcion);
-        $("#categoria").val(extension.extension_categoria);
+        $("#descripcion").val(particion.particion_descripcion);
+        $("#categoria").val(particion.particion_categoria);
         activarBotones();
     });
 }
 
-function agregarExtension()
+function agregarParticion()
 {
     var numero = $("#numero").val();
     var descripcion = $("#descripcion").val();
@@ -150,7 +150,7 @@ function agregarExtension()
     }
     if(validarTipoDato()){
         var params = {numero : numero, descripcion : descripcion, categoria : categoria};
-        var url = urlBase + "/extension/AddExtension.php";
+        var url = urlBase + "/particion/AddParticion.php";
         var success = function(response){
             cerrarSession(response);
             ID_EXTENSION = undefined;
@@ -162,7 +162,7 @@ function agregarExtension()
     }
 }
 
-function modificarExtension()
+function modificarParticion()
 {
     var id = ID_EXTENSION;
     var numero = $("#numero").val();
@@ -176,7 +176,7 @@ function modificarExtension()
     }
     if(validarTipoDato()){
         var params = {id : id, numero : numero, descripcion : descripcion, categoria : categoria};
-        var url = urlBase + "/extension/ModExtension.php";
+        var url = urlBase + "/particion/ModParticion.php";
         var success = function(response){
             cerrarSession(response);
             ID_EXTENSION = undefined;
@@ -188,9 +188,9 @@ function modificarExtension()
 }
 
 function validarExistencia(tipo,valor){
-    for(var i = 0 ; i < EXTENSIONES.length ; i++){
+    for(var i = 0 ; i < PARTICIONES.length ; i++){
         if(tipo === 'numero'){
-            if(valor === EXTENSIONES[i].extension_numero){
+            if(valor === PARTICIONES[i].particion_numero){
                 alertify.error("La extensión "+valor+" no se encuentra disponible");
                 marcarCampoError($("#"+tipo));
                 return true;
@@ -224,29 +224,29 @@ function validarTipoDato(){
     return true;
 }
 
-function eliminarExtension(){
+function eliminarParticion(){
     var id = ID_EXTENSION;
     var params = {id : id};
-    var url = urlBase + "/extension/DelExtension.php";
+    var url = urlBase + "/particion/DelParticion.php";
     var success = function(response){
         cerrarSession(response);
         alertify.success("Extensión eliminada");
         resetBotones();
-        buscarExtensiones();
+        buscarParticiones();
     };
     postRequest(url,params,success);
 }
 
-function preEliminarExtension(id,nombre){
+function preEliminarParticion(id,nombre){
     confirmar("Eliminar extensióm","Esta seguro que desea eliminar la extensión "+nombre,
             function(){
                 var params = {id : id};
-                var url = urlBase + "/extension/DelExtension.php";
+                var url = urlBase + "/particion/DelParticion.php";
                 var success = function(response){
                     cerrarSession(response);
                     alertify.success("Extensión eliminada");
                     resetBotones();
-                    buscarExtensiones();
+                    buscarParticiones();
                 };
                 postRequest(url,params,success);
             });

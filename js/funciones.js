@@ -244,7 +244,7 @@ function vaciarFormulario()
         marcarCampoOk($(this));
     });
     $("select").each(function() {
-        $(this).val("");
+        $(this).prop("selectedIndex",0);
         marcarCampoOk($(this));
     });
     $("textarea").each(function() {
@@ -291,8 +291,6 @@ function mensajeBienvenida(mensaje)
 function resetFormulario() 
 {
     MODIFICADO = false;
-    cambiarPropiedad($("#agregar"),"visibility","visible");
-    cambiarPropiedad($("#guardar"),"visibility","hidden");
 }
 
 
@@ -523,10 +521,16 @@ function resetBotones()
 {
     cambiarPropiedad($("#agregar"),"visibility","visible");
     cambiarPropiedad($("#guardar"),"visibility","hidden");
-    cambiarPropiedad($("#cancelar"),"visibility","hidden");
     cambiarPropiedad($("#eliminar"),"visibility","hidden");
 }
 
+function activarBotones(modificar = 'modificar'){
+    cambiarPropiedad($("#guardar"),"visibility","visible");
+    cambiarPropiedad($("#cancelar"),"visibility","visible");
+    if(modificar === 'modificar'){
+        cambiarPropiedad($("#eliminar"),"visibility","visible");
+    }
+}
 function seleccionar(div)
 {
     if(div.attr("class") === "tablaFila no-seleccionado")
@@ -807,3 +811,4 @@ function mostrarDivLoader() {
     $("#windowLoad").html(imgCentro);
  
 }
+

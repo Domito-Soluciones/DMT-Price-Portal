@@ -1,158 +1,67 @@
 /* global urlBase, alertify, NOMBRE_CLIENTE, ID_CLIENTE */
 var ID_USUARIO;
 var USUARIOS;
+var CATEGORIA = 0;
 var AGREGAR = true;
 var PAGINA = 'USUARIOS';
-var CAMPOS = ["nombre","descripcion"];
-
+var CAMPOS = ["nombre","descripcion","categoria"];
 $(document).ready(function(){
     PAGINA_ANTERIOR = PAGINA;
-    buscarUsuariosAll();
+    buscarUsuarios(true);
     $("#agregar").click(function(){
         AGREGAR = true;
         $("#lista_busqueda_usuario_detalle").load("html/datos_usuario.html", function( response, status, xhr ) {
-            quitarclase($("#guardar"),"oculto");
-            cambiarPropiedad($("#agregar"),"visibility","hidden");
-            cambiarPropiedad($("#eliminar"),"visibility","hidden");
             cambioEjecutado();
-            
             $("#volver").click(function(){
-                buscarUsuarios(NOMBRE_CLIENTE,ID_CLIENTE);
-                if(typeof ID_CLIENTE === "undefined")
-                {
-                    cambiarPropiedad($("#agregar"),"visibility","hidden");
-                }   
-                else
-                {
-                    cambiarPropiedad($("#agregar"),"visibility","visible");
-                }
-                cambiarPropiedad($("#guardar"),"visibility","hidden");
-                cambiarPropiedad($("#eliminar"),"visibility","hidden");
-
+                buscarUsuarios(true);
+                resetBotones();
             });
-            
         });
-        cambiarPropiedad($("#guardar"),"visibility","visible");
-        cambiarPropiedad($("#cancelar"),"visibility","visible");
+        activarBotones('agregar');
     });
 
     $("#busqueda").keyup(function(){
-        buscarClienteUsuario($(this).val());
+        buscarUsuarios();
     });
                 
     $("#guardar").click(function (){
-        if(AGREGAR)
-        {
+        if(AGREGAR){
             agregarUsuario();
         }
-        else
-        {
+        else{
             modificarUsuario();
         }
     });
+    
+    $("#eliminar").click(function(){
+        confirmar("Eliminar extensión","Esta seguro que desea eliminar al usuario "+$("#nombre").val(),
+        function(){
+            eliminarUsuario();
+            },null);
+    });
 });
 
-
-/* global urlBase, alertify, PAGINA, CAMPOS, clientes_usuario */
-
-function agregarUsuario()
+function buscarUsuarios(cargar = false)
 {
-    var cliente = $("#clientes").val();
-    var tipo = $("#tipo").val();
-    var horario = $("#horario").val();
-    var hora = $("#hora").val();
-    var numero = $("#numero").val();
-    var descripcion = $("#descripcion").val();
-    var nombre = $("#nombre").val();
-    var origen = $("#origen").val();
-    var destino = $("#destino").val();
-    var valor1 = $("#valor1").val();
-    var valor2 = $("#valor2").val();
-    var array = [tipo,horario,descripcion,numero,hora,nombre,origen,destino,valor1,valor2];
-    if(!validarCamposOr(array))
-    {
-        activarPestania(array);
-        alertify.error("Ingrese todos los campos necesarios");
-        return;
-    }
-    if(validarTipoDatoUsuario())
-    {
-        var params = {cliente : cliente, tipo : tipo,horario : horario, numero : numero, hora : hora,descripcion: descripcion,nombre : nombre, origen : origen,
-            destino : destino, valor1 : valor1, valor2 : valor2};
-        var url = urlBase + "/usuario/AddUsuario.php";
-        var success = function(response)
-        {
-            ID_USUARIO = undefined;
-            cerrarSession(response);
-            alertify.success("Usuario Agregada");
-            if(PAGINA !== 'CLIENTES')
-            {
-                vaciarFormulario();
-            }
-            resetFormulario();
-            buscarUsuarios(ID_CLIENTE,NOMBRE_CLIENTE);
-            cambiarPropiedad($("#pie-aniadir"),"display","block");
-            cambiarPropiedad($("#agregar"),"visibility","visible");
-            cambiarPropiedad($("#agregarT"),"visibility","visible");
-            cambiarPropiedad($("#guardar"),"visibility","hidden");
-            cambiarPropiedad($("#guardarT"),"visibility","hidden");
-        };
-        postRequest(url,params,success);
-    }
-}
-
-function modificarUsuario()
-{
-    var id = ID_USUARIO;
-    var cliente = $("#clientes").val();;
-    var tipo = $("#tipo").val();
-    var horario = $("#horario").val();
-    var descripcion = $("#descripcion").val();
-    var hora = $("#hora").val();
-    var numero = $("#numero").val();
-    var nombre = $("#nombre").val();
-    var origen = $("#origen").val();
-    var destino = $("#destino").val();
-    var valor1 = $("#valor1").val();
-    var valor2 = $("#valor2").val();
-    var array = [tipo,horario,descripcion,numero, hora,nombre,valor1,valor2];
-    if(!validarCamposOr(array))
-    {
-        activarPestania(array);
-        alertify.error("Ingrese todos los campos necesarios");
-        return;
-    }
-    if(validarTipoDatoUsuario())
-    {
-        var params = {id : id,cliente : cliente, tipo : tipo,horario : horario, numero : numero, hora : hora,descripcion : descripcion,nombre : nombre, origen : origen,
-            destino : destino, valor1 : valor1, valor2 : valor2};
-        var url = urlBase + "/usuario/ModUsuario.php";
-        var success = function(response)
-        {
-            cerrarSession(response);
-            alertify.success("Usuario Modificada");
-            resetFormulario();
-            buscarUsuarios(ID_CLIENTE,NOMBRE_CLIENTE);
-            cambiarPropiedad($("#pie-aniadir"),"display","block");
-            agregarclase($("#guardarT"),"oculto");
-            agregarclase($("#eliminarT"),"oculto");
-            quitarclase($("#agregarT"),"oculto");
-        };
-        postRequest(url,params,success);
-    }
-}
-
-function buscarClienteUsuario()
-{
+    var categorias = $("#lista_busqueda_usuario");
+    categorias.html("");
+    categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_0\" onClick=\"cambiarFilaCategoria(0)\">Todo</div>");
+    categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_1\" onClick=\"cambiarFilaCategoria(1)\">Gerencia</div>");
+    categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_2\" onClick=\"cambiarFilaCategoria(2)\">Administrativo</div>");
+    categorias.append("<div class=\"fila_contenedor fila_contenedor\" id=\"col_3\" onClick=\"cambiarFilaCategoria(3)\">Operacional</div>");
+    marcarFilaActiva("col_"+CATEGORIA);
+    $("#lista_busqueda_usuario_detalle").html("");
     var busqueda = $("#busqueda").val();
-    var params = {busqueda : busqueda,buscaCC : '0'};
-    var url = urlBase + "/cliente/GetClientes.php";
+    var categoria = CATEGORIA;
+    var params = {busqueda : busqueda, categoria : categoria};
+    var url = urlBase + "/usuario/GetUsuarios.php";
     var success = function(response)
     {
         cerrarSession(response);
-        var clientes = $("#lista_busqueda_usuario");
-        clientes.html("");
-        CLIENTES = response;
+        var usuarios = $("#lista_busqueda_usuario_detalle");
+        usuarios.html("");
+        USUARIOS = response;
+        usuarios.append("<div class=\"contenedor_central_titulo_usuario\"><div>ID</div><div>Usuario</div><div>Descripción</div><div>Extensión</div><div>Centro Costo</div><div></div></div>");
         if(response.length === 0)
         {
             alertify.error("No hay registros que mostrar");
@@ -160,120 +69,57 @@ function buscarClienteUsuario()
         }
         for(var i = 0 ; i < response.length; i++)
         {
-            var id = response[i].cliente_id;
-            var rut = response[i].cliente_rut;
-            var nombre = response[i].cliente_razon;
-            var direccion = response[i].cliente_direccion;
-            var titulo = recortar(rut+" / "+nombre);
-            if (typeof ID_CLIENTE !== "undefined" && ID_CLIENTE === id)
-            {
-                clientes.append("<div class=\"fila_contenedor fila_contenedor_activa\" id=\""+id+"\" onClick=\"cambiarFilaUsuario('"+id+"','"+nombre+"','"+direccion+"')\">"+titulo+"</div>");
-            }
-            else
-            {
-                clientes.append("<div class=\"fila_contenedor\" id=\""+id+"\" onClick=\"cambiarFilaUsuario('"+id+"','"+nombre+"','"+direccion+"')\">"+titulo+"</div>");
-            }
-        }
-    };
-    postRequest(url,params,success);
-}
-
-function cambiarFilaUsuario(id,nombre,direccion)
-{
-    if(MODIFICADO)
-    {
-        confirmar("Cambio de usuario",
-        "¿Desea cambiar de usuario sin guardar los cambios?",
-        function()
-        {
-            MODIFICADO = false;
-            buscarUsuarios(id,nombre,direccion);
-        },
-        function()
-        {
-            MODIFICADO = true;
-        });
-    }
-    else
-    {
-        buscarUsuarios(id,nombre,direccion);
-    }
-}
-function buscarUsuarios(id,nombre,direccion)
-{
-    ID_CLIENTE = id;
-    NOMBRE_CLIENTE = nombre;
-    DIRECCION_EMPRESA = direccion;
-    $("#clientes").val(nombre);
-    marcarFilaActiva(id);
-    quitarclase($("#agregar"),"oculto");
-    $("#lista_busqueda_usuario_detalle").html("");
-    var busqueda = NOMBRE_CLIENTE;
-    var params = {busqueda : busqueda};
-    var url = urlBase + "/usuario/GetUsuarios.php";
-    var success = function(response)
-    {
-        
-        cambiarPropiedad($(".pie-usuario"),"display","block");
-        cambiarPropiedad($("#guardar"),"visibility","hidden");
-        cambiarPropiedad($("#eliminar2"),"visibility","hidden");
-        cerrarSession(response);
-        var usuarios = $("#lista_busqueda_usuario_detalle");
-        usuarios.html("");
-        USUARIOS = response;
-        usuarios.append("<div class=\"contenedor_central_titulo_usuario\"><div>Nombre</div><div>Hora</div><div>Descripción</div><div>Empresa</div><div></div></div>");
-        if(response.length === 0)
-        {
-            usuarios.append("<div class=\"mensaje_bienvenida\">No hay registros que mostrar</div>");
-        }
-        for(var i = 0 ; i < response.length; i++)
-        {
-            var id = response[i].usuario_id;
-            var nombre = response[i].usuario_descripcion;
-            var hora = response[i].usuario_hora;
-            var descripcion = response[i].usuario_nombre;
-            var empresa = response[i].usuario_cliente;
+            var usuario = response[i];
+            var id = usuario.usuario_id;
+            var nombre = usuario.usuario_nombre;
+            var descripcion = usuario.usuario_descripcion;
+            var extension = usuario.usuario_extension === '' ? 'No Asignada' : usuario.usuario_extension;
+            var centroCosto = usuario.usuario_centro_costo === '' ? 'No Asignado' : usuario.usuario_centro_costo;
             usuarios.append("<div class=\"fila_contenedor fila_contenedor_usuario_detalle\" id=\""+id+"\" \">"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+nombre+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+hora+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+descripcion+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+empresa+"</div>"+
-                    "<div><img onclick=\"preEliminarUsuario('"+descripcion+"','"+nombre+"')\" src=\"img/eliminar-negro.svg\" width=\"12\" height=\"12\"></div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+id+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+nombre+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+descripcion+"</div>"+
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+extension+"</div>"+                    
+                    "<div onClick=\"abrirModificar("+id+",'"+nombre+"')\">"+centroCosto+"</div>"+                    
+                    "<div><img onclick=\"preEliminarUsuario("+id+",'"+nombre+"')\" src=\"img/eliminar-negro.svg\" width=\"12\" height=\"12\"></div>"+
                     "</div>");
         }
     };
-    postRequest(url,params,success);
+    postRequest(url,params,success,cargar);
     
 }
 
-function abrirBuscador(id)
-{
-    AGREGAR = false;
-    ID_USUARIO = id;
-    if(PAGINA === 'USUARIOS')
-    {
-        cambiarPropiedad($("#guardar"),"visibility","visible");
-        cambiarPropiedad($("#eliminar2"),"visibility","visible");   
+function cambiarFilaCategoria(id){
+    resetBotones();
+    CATEGORIA = id;
+    if(MODIFICADO){
+        confirmar("Cambio de extensión",
+        "¿Desea cambiar de extensión sin guardar los cambios?",
+        function(){
+            MODIFICADO = false;
+            buscarUsuarios(true);
+        },
+        function(){
+            MODIFICADO = true;
+        });
     }
-    cambiarPropiedad($("#pie-aniadir"),"display","none");
-    agregarclase($("#agregarT"),"oculto");
-    quitarclase($("#guardarT"),"oculto");
-    quitarclase($("#eliminarT"),"oculto");
-    $("#lista_busqueda_usuario_detalle").load("html/datos_usuario_cliente.html", function( response, status, xhr ) {
-        iniciarHora([$("#hora")]);
-        if(PAGINA === 'CLIENTES')
-        {
-            cambiarPropiedad($("#titulo_usuario"),"background-color","white");
-            cambiarPropiedad($(".contenedor-pre-input"),"height","25px");
-        }
-        else if(PAGINA !== 'USUARIOS')
-        {
-           cambiarPropiedad($("#contenedor_usuario"),"display","none");
-           $("#pie_usuario #agregar").attr("id","agregarNo");
-           $("#pie_usuario #guardar").attr("id","guardarNo");
-           $("#pie_usuario #eliminar").attr("id","eliminarNo");
-        }
+    else{
+        buscarUsuarios(true);
+    }
+}
+
+function abrirModificar(id,nombre)
+{
+    ID_USUARIO = id;
+    AGREGAR = false;
+    $("#lista_busqueda_usuario_detalle").load("html/datos_usuario.html", function( response, status, xhr ) {
+        $("#titulo_pagina_usuario").text(id + " ("+nombre+")");
         cambioEjecutado();
+        $("#volver").click(function(){
+            buscarUsuarios(true);
+            resetBotones();
+        });
+       
         var usuario;
         for(var i = 0 ; i < USUARIOS.length; i++)
         {
@@ -282,226 +128,95 @@ function abrirBuscador(id)
                 usuario = USUARIOS[i];
             }
         }
-        $("#tipo").change(function(){
-            generarNombre();
-        });
-        $("#horario").change(function(){
-            generarNombre();
-        });
-        cargarClientes();
-        $("#clientes").val(usuario.usuario_cliente);
-        $("#tipo").val(usuario.usuario_tipo);
-        $("#horario").val(usuario.usuario_horario);
-        $("#hora").val(usuario.usuario_hora);
-        $("#numero").val(usuario.usuario_numero);
-        $("#descripcion").val(usuario.usuario_descripcion);
-        $("#nombre").prop("readonly",true);
         $("#nombre").val(usuario.usuario_nombre);
-        $("#origen").val(usuario.usuario_origen);
-        $("#destino").val(usuario.usuario_destino);
-        $("#valor1").val(usuario.usuario_valor1);
-        $("#valor2").val(usuario.usuario_valor2);
-        cambiarPropiedad($("#guardar"),"visibility","visible");
-        cambiarPropiedad($("#cancelar"),"visibility","visible");
-        cambiarPropiedad($("#eliminar"),"visibility","visible");
-        $("#eliminar2").click(function (){
-            confirmar("Eliminar usuario","Esta seguro que desea eliminar la usuario "+$("#descripcion").val() + " " +$("#nombre").val(),
-            function(){
-                eliminarUsuario();
-            },null);
-        });
-
-        $("#volverT").click(function(){
-            if(typeof NOMBRE_CLIENTE === "undefined" || typeof ID_CLIENTE === "undefined")
-            {
-                buscarUsuariosAll();
-                cambiarPropiedad($("#agregar"),"visibility","hidden");
-            }   
-            else
-            {
-                buscarUsuarios(ID_CLIENTE,NOMBRE_CLIENTE);
-                cambiarPropiedad($("#agregar"),"visibility","visible");
-            }
-            cambiarPropiedad($("#guardar"),"visibility","hidden");
-            cambiarPropiedad($("#eliminar"),"visibility","hidden");
-            cambiarPropiedad($("#eliminar2"),"visibility","hidden");
-        });
+        $("#descripcion").val(usuario.usuario_descripcion);
+        $("#categoria").val(usuario.usuario_categoria);
+        activarBotones();
     });
 }
 
-function eliminarUsuario()
+function agregarUsuario()
 {
     var nombre = $("#nombre").val();
-    var params = {nombre : nombre};
-    var url = urlBase + "/usuario/DelUsuario.php";
-    var success = function(response)
-    {
-        alertify.success("Usuario eliminada");
+    var descripcion = $("#descripcion").val();
+    var categoria = $("#categoria").val();
+    var array = [nombre,descripcion];
+    if(!validarCamposOr(array)){
+        activarPestania(array);
+        alertify.error("Ingrese todos los campos necesarios");
+        return;
+    }
+    var params = {nombre : nombre, descripcion : descripcion, categoria : categoria};
+    var url = urlBase + "/usuario/AddUsuario.php";
+    var success = function(response){
         cerrarSession(response);
-        resetBotones();
-        buscarUsuarios(ID_CLIENTE,NOMBRE_CLIENTE);
-        cambiarPropiedad($("#pie-aniadir"),"display","initial");
-        agregarclase($("#eliminarT"),"oculto");
-        agregarclase($("#guardarT"),"oculto");
-        quitarclase($("#agregarT"),"oculto");
+        ID_USUARIO = undefined;
+        alertify.success("Usuario Agregado");
+        vaciarFormulario();
+        resetFormulario();
     };
     postRequest(url,params,success);
 }
 
-function validarExistencia(tipo,valor)
+function modificarUsuario()
 {
-    for(var i = 0 ; i < USUARIOS.length ; i++)
-    {
-        if(tipo === 'nombre')
-        {
-            if(valor === USUARIOS[i].usuario_nombre)
-            {
-                return true;
-            }
-        }
-    }    
+    var id = ID_USUARIO;
+    var nombre = $("#nombre").val();
+    var descripcion = $("#descripcion").val();
+    var categoria = $("#categoria").val();
+    var array = [nombre,descripcion];
+    if(!validarCamposOr(array)){
+        activarPestania(array);
+        alertify.error("Ingrese todos los campos necesarios");
+        return;
+    }
+    var params = {id : id, nombre : nombre, descripcion : descripcion, categoria : categoria};
+    var url = urlBase + "/usuario/ModUsuario.php";
+    var success = function(response){
+        cerrarSession(response);
+        ID_USUARIO = undefined;
+        alertify.success("Usuario Modificado");
+        resetFormulario();
+    };
+    postRequest(url,params,success);
 }
 
-function validarTipoDatoUsuario()
-{
-    for(var i = 0 ; i < CAMPOS.length ; i++)
-    {
-        marcarCampoOk($("#"+CAMPOS[i]));
-    }
-    var numero = $("#numero");
-    var valor1 = $("#valor1");
-    var valor2 = $("#valor2");
-    if(!validarNumero(numero.val()))
-    {
-        marcarCampoError(numero);
-        alertify.error('Número ruta debe ser numerico');
-        return false;
-    }
-    if(!validarNumero(valor1.val()))
-    {
-        marcarCampoError(valor1);
-        alertify.error('Usuario 1 debe ser numerico');
-        return false;
-    }
-    if(!validarNumero(valor2.val()))
-    {
-        marcarCampoError(valor2);
-        alertify.error('Usuario 2 debe ser numerico');
-        return false;
-    }
-    return true;
-}
-
-function activarPestania(array)
-{
-    for(var i = 0 ; i < CAMPOS.length ; i++)
-    {
-        if(array[i] === '')
-        {
+function activarPestania(array){
+    for(var i = 0 ; i < CAMPOS.length ; i++){
+        if(array[i] === ''){
             marcarCampoError($("#"+CAMPOS[i]));
         }
-        else
-        {
+        else{
             marcarCampoOk($("#"+CAMPOS[i]));
         }
     }
+   
 }
 
-function cargarClientes()
-{
-    var busqueda = $("#clientes").val();
-    var params = {busqueda : busqueda,buscaCC : '0'};
-    var url = urlBase + "/cliente/GetClientes.php";
-    var success = function(response)
-    {
-        $("#lcliente").html("");
-        for(var i = 0 ; i < response.length ; i++)
-        {
-            var nombre = response[i].cliente_razon;
-            $("#lcliente").append("<option value=\""+nombre+"\">"+nombre+"</option>");
-            clientes_usuario.push(nombre);
-        }
+function eliminarUsuario(){
+    var id = ID_USUARIO;
+    var params = {id : id};
+    var url = urlBase + "/usuario/DelUsuario.php";
+    var success = function(response){
+        cerrarSession(response);
+        alertify.success("Usuario eliminado");
+        resetBotones();
+        buscarUsuarios();
     };
     postRequest(url,params,success);
 }
 
-function generarNombre()
-{
-    var tipo = $("#tipo").val();
-    var horario = $("#horario").val();
-    if(horario === '' && tipo === '')
-    {
-        $("#nombre").val("-");
-    }
-    if(horario !== '' && tipo === '')
-    {
-        $("#nombre").val("-"+horario);
-    }
-    else if(tipo !== '' && horario === '')
-    {
-        $("#nombre").val(tipo+"-");
-    }
-    else if(tipo !== '' && horario !== '')
-    {
-        $("#nombre").val(tipo+"-"+horario);
-    }
-}
-
-function preEliminarUsuario(nombre,descripcion)
-{
-    confirmar("Eliminar usuario","Esta seguro que desea eliminar la usuario "+descripcion+" "+nombre,
+function preEliminarUsuario(id,nombre){
+    confirmar("Eliminar extensióm","Esta seguro que desea eliminar la extensión "+nombre,
             function(){
-                var params = {nombre : nombre};
+                var params = {id : id};
                 var url = urlBase + "/usuario/DelUsuario.php";
-                var success = function(response)
-                {
-                    agregarclase($("#eliminarT"),"oculto");
-                    agregarclase($("#guardarT"),"oculto");
-                    quitarclase($("#agregarT"),"oculto");
-                    alertify.success("Usuario eliminada");
+                var success = function(response){
                     cerrarSession(response);
+                    alertify.success("Usuario eliminado");
                     resetBotones();
-                    buscarUsuarios(ID_CLIENTE,NOMBRE_CLIENTE);
-                    cambiarFilaUsuario(ID_CLIENTE,NOMBRE_CLIENTE);
+                    buscarUsuarios();
                 };
                 postRequest(url,params,success);
             });
-}
-
-function buscarUsuariosAll()
-{
-    $("#lista_busqueda_usuario_detalle").html("");
-    cambiarPropiedad($(".mensaje_bienvenida"),"display","none");
-    var busqueda = $("#busqueda").val();
-    var params = {busqueda : busqueda};
-    var url = urlBase + "/usuario/GetUsuarios.php";
-    var success = function(response)
-    {
-        cerrarSession(response);
-        var usuarios = $("#lista_busqueda_usuario_detalle");
-        usuarios.html("");
-        USUARIOS = response;
-        usuarios.append("<div class=\"contenedor_central_titulo_usuario\"><div>Nombre</div><div>Hora</div><div>Descripción</div><div>Empresa</div><div></div></div>");
-        if(response.length === 0)
-        {
-            usuarios.append("<div class=\"mensaje_bienvenida\">No hay registros que mostrar</div>");
-        }
-        for(var i = 0 ; i < response.length; i++)
-        {
-            var id = response[i].usuario_id;
-            var nombre = response[i].usuario_descripcion;
-            var hora = response[i].usuario_hora;
-            var descripcion = response[i].usuario_nombre;
-            var empresa = response[i].usuario_cliente;
-            usuarios.append("<div class=\"fila_contenedor fila_contenedor_usuario_detalle\" id=\""+id+"\" \">"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+nombre+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+hora+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+descripcion+"</div>"+
-                    "<div onClick=\"abrirBuscador('"+id+"')\">"+empresa+"</div>"+
-                    "<div><img onclick=\"preEliminarUsuario('"+descripcion+"','"+nombre+"')\" src=\"img/eliminar-negro.svg\" width=\"12\" height=\"12\"></div>"+
-                    "</div>");
-        }
-    };
-    postRequest(url,params,success);
-    
 }

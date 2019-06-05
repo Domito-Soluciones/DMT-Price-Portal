@@ -5,12 +5,18 @@ include '../../dominio/Usuario.php';
 
 class UsuarioDao {
     
-    public function getUsuarios($busqueda)
+    public function getUsuarios($busqueda,$categoria)
     {
         $array = array();
         $conn = new Conexion();
         try {
-            $query = "SELECT * FROM tbl_usuario WHERE usuario_nombre LIKE '%".$busqueda."%' OR usuario_descripcion LIKE '%".$busqueda."%' LIMIT 20";
+            $buscaCategoria = '';
+            if($categoria != 0){
+                $buscaCategoria.= " AND usuario_categoria = ".$categoria;
+            }
+            $query = "SELECT * FROM tbl_usuario "
+                    . ""
+                    . " WHERE (usuario_nombre LIKE '%".$busqueda."%' OR usuario_descripcion LIKE '%".$busqueda."%') ".$buscaCategoria;
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die; 
             while($row = mysqli_fetch_array($result)) {
@@ -18,6 +24,7 @@ class UsuarioDao {
                 $usuario->setId($row["usuario_id"]);
                 $usuario->setNombre($row["usuario_nombre"]);
                 $usuario->setDescripcion($row["usuario_descripcion"]);
+                $usuario->setCategoria($row["usuario_categoria"]);
                 array_push($array, $usuario);
             }
         } catch (Exception $exc) {
@@ -47,22 +54,13 @@ class UsuarioDao {
     public function agregarUsuario($usuario)
     {
         $id = 0;
-        $descripcion = $usuario->getDescripcion();
-        $numero = $usuario->getNumero();
-        $hora = $usuario->getHora();
         $nombre = $usuario->getNombre();
-        $origen = $usuario->getOrigen();
-        $destino = $usuario->getDestino();
-        $valor1 = $usuario->getValor1();
-        $valor2 = $usuario->getValor2();
-        $cliente = $usuario->getCliente();
-        $tipo = $usuario->getTipo();
-        $horario = $usuario->getHorario();
+        $descripcion = $usuario->getDescripcion();
+        $categoria = $usuario->getCategoria();
         $conn = new Conexion();
         try {
-            $query = "INSERT INTO tbl_usuario (usuario_descripcion,usuario_numero,usuario_hora,usuario_nombre,usuario_origen,"
-                    . "usuario_destino,usuario_valor1,usuario_valor2,usuario_cliente,usuario_tipo,usuario_horario) VALUES "
-                    . "('$descripcion','$numero','$hora','$nombre','$origen','$destino','$valor1','$valor2','$cliente','$tipo','$horario')";
+            $query = "INSERT INTO tbl_usuario (usuario_nombre,usuario_descripcion,usuario_categoria,usuario_fecha) VALUES "
+                    . "('$nombre','$descripcion','$categoria',NOW())";
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);
@@ -78,23 +76,13 @@ class UsuarioDao {
     public function modificarUsuario($usuario)
     {
         $id = $usuario->getId();
-        $descripcion = $usuario->getDescripcion();
-        $numero = $usuario->getNumero();
-        $hora = $usuario->getHora();
         $nombre = $usuario->getNombre();
-        $origen = $usuario->getOrigen();
-        $destino = $usuario->getDestino();
-        $valor1 = $usuario->getValor1();
-        $valor2 = $usuario->getValor2();
-        $cliente = $usuario->getCliente();
-        $tipo = $usuario->getTipo();
-        $horario = $usuario->getHorario();
+        $descripcion = $usuario->getDescripcion();
+        $categoria = $usuario->getCategoria();
         $conn = new Conexion();
         try {
-            $query = "UPDATE tbl_usuario SET usuario_descripcion = '$descripcion',usuario_numero = '$numero',usuario_hora = '$hora',usuario_origen = '$origen',"
-                    . " usuario_destino = '$destino',usuario_valor1 = $valor1,usuario_valor2 = $valor2,"
-                    . " usuario_cliente = '$cliente',usuario_tipo = '$tipo', usuario_horario = '$horario',"
-                    . " usuario_nombre = '$nombre' WHERE usuario_id = $id";       
+            $query = "UPDATE tbl_usuario SET usuario_nombre = '$nombre',usuario_descripcion = '$descripcion',usuario_categoria = '$categoria'"
+                    . " WHERE usuario_id = $id";       
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);

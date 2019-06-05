@@ -25,7 +25,7 @@ class SesionDao {
         return $sesion;
     }
     
-    public function getSesions($busqueda)
+    public function getSesiones($busqueda)
     {
         $array = array();
         $conn = new Conexion();

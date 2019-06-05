@@ -5,12 +5,18 @@ include '../../dominio/Extension.php';
 
 class ExtensionDao {
     
-    public function getExtensiones($busqueda)
+    public function getExtensiones($busqueda,$categoria)
     {
         $array = array();
         $conn = new Conexion();
         try {
-            $query = "SELECT * FROM tbl_extension WHERE extension_numero LIKE '%".$busqueda."%' OR descripcion LIKE '%".$busqueda."%' LIMIT 20";
+            $buscaCategoria = '';
+            if($categoria != 0){
+                $buscaCategoria.= " AND extension_categoria = ".$categoria;
+            }
+            $query = "SELECT extension_id,extension_numero,extension_descripcion,extension_categoria,usuario_nombre FROM tbl_extension LEFT JOIN tbl_usuario_extension ON extension_id = usuarioextension_extension"
+                    . " LEFT JOIN tbl_usuario ON usuarioextension_usuario = usuario_id"
+                    . " WHERE (extension_numero LIKE '%".$busqueda."%' OR extension_descripcion LIKE '%".$busqueda."%' OR usuario_nombre LIKE '%".$busqueda."%' ) ".$buscaCategoria;
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die; 
             while($row = mysqli_fetch_array($result)) {
@@ -18,7 +24,8 @@ class ExtensionDao {
                 $extension->setId($row["extension_id"]);
                 $extension->setNumero($row["extension_numero"]);
                 $extension->setDescripcion($row["extension_descripcion"]);
-                $extension->setParticion($row["extension_particion"]);
+                $extension->setCategoria($row["extension_categoria"]);
+                $extension->setUsuario($row["usuario_nombre"]);
                 array_push($array, $extension);
             }
         } catch (Exception $exc) {
@@ -50,11 +57,11 @@ class ExtensionDao {
         $id = 0;
         $numero = $extension->getNumero();
         $descripcion = $extension->getDescripcion();
-        $particion = $extension->getParticion();
+        $categoria = $extension->getCategoria();
         $conn = new Conexion();
         try {
-            $query = "INSERT INTO tbl_extension (extension_numero,extension_descripcion,extension_particion) VALUES "
-                    . "('$numero','$descripcion','$particion')";
+            $query = "INSERT INTO tbl_extension (extension_numero,extension_descripcion,extension_categoria,extension_fecha) VALUES "
+                    . "('$numero','$descripcion','$categoria',NOW())";
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);
@@ -72,11 +79,11 @@ class ExtensionDao {
         $id = $extension->getId();
         $numero = $extension->getNumero();
         $descripcion = $extension->getDescripcion();
-        $particion = $extension->getParticion();
+        $categoria = $extension->getCategoria();
         $conn = new Conexion();
         try {
             $query = "UPDATE tbl_extension SET extension_numero = '$numero',extension_descripcion = '$descripcion',"
-                    . "extension_particion = '$particion' WHERE extension_id = $id";       
+                    . "extension_categoria = '$categoria',extension_fecha = NOW() WHERE extension_id = $id";       
             $conn->conectar();
             if (mysqli_query($conn->conn,$query)) {
                 $id = mysqli_insert_id($conn->conn);

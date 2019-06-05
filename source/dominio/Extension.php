@@ -4,8 +4,9 @@ class Extension {
     private $id;
     private $numero;
     private $descripcion;
-    private $particion;
-    
+    private $categoria;
+    private $usuario;
+   
     function getId() {
         return $this->id;
     }
@@ -18,8 +19,12 @@ class Extension {
         return $this->descripcion;
     }
 
-    function getParticion() {
-        return $this->particion;
+    function getCategoria() {
+        return $this->categoria;
+    }
+
+    function getUsuario() {
+        return $this->usuario;
     }
 
     function setId($id) {
@@ -34,11 +39,13 @@ class Extension {
         $this->descripcion = $descripcion;
     }
 
-    function setParticion($particion) {
-        $this->particion = $particion;
+    function setCategoria($categoria) {
+        $this->categoria = $categoria;
     }
 
+    function setUsuario($usuario) {
+        $this->usuario = $usuario;
+    }
 
-    
 
 }

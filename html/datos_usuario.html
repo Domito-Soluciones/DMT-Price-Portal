@@ -1,19 +1,20 @@
-<div class="titulo_pagina" id="titulo_tarifa">
+<div class="titulo_pagina" id="titulo_extensión">
     <img src="img/atras.svg" class="img_volver" id="volver"> Informaci&oacute;n Usuario
+    <div class="valor_titulo" id="titulo_pagina_extension"></div>
 </div>
-<div class="contenedor-titulo" id="contenedor_tarifa">
+<div class="contenedor-titulo" id="contenedor_extensión">
     <div class="titulo_pagina_general" id="p_general">
         1. General
     </div>
 </div>
-<div class="contenedor-info general cont-tarifa" id="cont_general">
+<div class="contenedor-info general cont-usuario" id="cont_general">
     <div class="contenedor-formulario">
         <div class="contenedor-fila">
             <div class="contenedor-pre-input">
                 Nombre (*)
             </div>
             <div class="contenedor-input">
-                <input type="text" id="descripcion" placeholder="Ej: Juan Perez" maxlength="20">
+                <input type="text" id="nombre" placeholder="Ej: 57344" maxlength="20">
             </div>
         </div>
         <div class="contenedor-fila">
@@ -21,22 +22,21 @@
                 Descripción (*)
             </div>
             <div class="contenedor-input">
-                <input type="text" id="descripcion" placeholder="Ej: Gerente" maxlength="20">
+                <input type="text" id="descripcion" placeholder="Ej: Sala Reuniones" maxlength="50">
             </div>
         </div>
-    </div>
-</div>
-<div class="pie-tarifa">
-    <div class="pie-center">
-        <div class="boton oculto" id="guardar">
-            <img src="img/guardar.svg" width="12" height="12">
-            Guardar
-        </div>
-    </div>
-    <div class="pie-right">
-        <div class="boton oculto" id="eliminar">
-            <img src="img/eliminar.svg" width="12" height="12">
-            Eliminar
+        <div class="contenedor-fila">
+            <div class="contenedor-pre-input">
+                Categoría
+            </div>
+            <div class="contenedor-input">
+                <select id="categoria">
+                    <option value="0">Seleccione</option>
+                    <option value="1">Gerencia</option>
+                    <option value="2">Administrativo</option>
+                    <option value="3">Operacional</option>
+                </select>
+            </div>
         </div>
     </div>
 </div>

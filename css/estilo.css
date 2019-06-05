@@ -9,7 +9,6 @@ html,body
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
 /* formularios */
 .mensaje-input
 {
@@ -351,40 +350,6 @@ select
     height: calc(100% - 10px);
 }
 
-.buscador-asignacion
-{
-    width: 35%;
-    height: 100%;
-}
-.buscador-asignacion-cliente
-{
-    width: 20%;
-    height: 100%;
-}
-.buscador-asignacion-cliente-pasajero
-{
-    width: calc(80% - 2px);
-    height: calc(50%);
-}
-.buscador-pasajero
-{
-    width: 24%;
-    height: 100%;
-    display: none;
-    min-width: 0 !important;
-}
-
-.buscador-asignacion-boton
-{
-    border-top: solid 1px #8a9cb2;
-    margin-left: 4%;
-    width: 26%;
-}
-.buscador-asignacion-boton .boton
-{
-    width: 100px !important;
-}
-
 .tabla-central
 {
     width: 100%;
@@ -508,7 +473,8 @@ select
 .fila_contenedor
 {
     font-size: 15px;
-    width: 100%;
+    width: 95%;
+    padding-left: 5%;
     height: 30px;
     line-height: 30px;
     border-bottom: solid 1px white;
@@ -532,9 +498,9 @@ select
 }
 .contenedor-info
 {
-    border: solid 1px #d35400;
+    border-top: solid 1px #d35400;
     background-color: white;
-    height: calc(100% - 81px);
+    height: calc(100% - 82px);
     padding-top: 20px;
     min-height: 460px;
 }
@@ -891,158 +857,10 @@ select
     display: none;
     cursor:pointer;
 }
-
-.pac-container
-{
-    width: 400px !important;
-}
 .input_asignar
 {
     width: 70% !important;
     height: 25px !important;   
-}
-.input_asignar_mini
-{
-    width: 20% !important;
-    height: 25px !important;   
-}
-.input_asignar_editar
-{
-    position: relative;
-    width: 330px;
-    height: 25px;   
-}
-.input_asignar_agregar
-{
-    position: relative;
-    width: 135px;
-    height: 20px;   
-}
-.input_asignar_agregar_grande
-{
-    position: relative;
-    width: 335px;
-    height: 20px;   
-}
-.input_cliente
-{
-    width: 130% !important;
-    height: 25px !important;   
-}
-
-.select_asignar
-{
-    width: 70% !important;
-    height: 30px !important;
-    background-position: 125px, 0 !important;
-}
-.select_asignar_cliente
-{
-    width: 130% !important;
-    height: 30px !important;
-    background-position: 170px, 0 !important;
-}
-
-.textarea_asignar
-{
-    width: 90%;
-    min-width: 192px;
-    max-width: 90%;
-    height: 90px; 
-    min-height: 90px; 
-    max-height: 90px; 
-    border-radius: 5px;
-    border: solid 1px #d35400;
-}
-
-.textarea_asignar2
-{
-    width: 75%;
-    min-width: 192px;
-    max-width: 300px;
-    height: 50px; 
-    min-height: 50px; 
-    max-height: 50px; 
-    border-radius: 5px;
-    border: solid 1px #d35400;
-}
-
-.contenedorPartida
-{
-    height: auto;
-}
-.datalist-visible {
-    position:absolute;
-    display: block;
-    background-color: white;
-    width: 370px;
-    transform: translate(-55%);
-}
-.datalist-invisible {
-    position:absolute;
-    display: none;
-    background-color: white;
-    width: 300px;
-}
-.option-datalist
-{
-    padding-top: 10px;
-    width: 100%;
-    font-size: 15px;
-    cursor: pointer;
-    border-bottom: solid 1px #d35400;
-}
-.option-datalist:hover
-{
-    background-color: #ecf0f1;
-}
-
-.option-datalist img
-{
-    margin: 1px;
-}
-
-.titulo_servicios_pendientes
-{
-    width: 30px;
-    height: 200px;
-    line-height: 30px;
-    text-align: center;
-    background-color: #8a9cb2;
-    color: white;
-    writing-mode: vertical-lr;
-    position: absolute;
-    float: right;
-    cursor: pointer;
-    top:130px;
-    left: calc(100% - 30px)
-}
-
-.servicios_pendientes
-{
-    width: 300px;
-    height: calc(100% - 60px);
-    overflow-y: scroll;
-    text-align: center;
-    background-color: #FFFFFF;
-    position: absolute;
-    top:60px;
-    left:calc(100% - 315px);
-    float: right;
-    z-index: 2;
-}
-.contenedor_servicios
-{
-    width: 100%;
-    height: auto;
-    overflow: auto;
-    color: red;
-}
-.opcion_servicios
-{
-    width: 150px;
-    height: 30px;
-    cursor: pointer;
 }
 
 .opcion-agregar
@@ -1053,11 +871,6 @@ select
     color: #0b41d3;
     text-align: center;
     display: none;
-}
-
-.radio-tipo
-{
-    transform:scale(1.2);
 }
 
 .contenedor-boton-siguiente
@@ -1073,23 +886,6 @@ select
     cursor: pointer;
     float: right;
     padding-right: 30px;
-}
-
-.contenor-centro-costo
-{
-    height: 400px;
-    overflow: auto;
-    width: 100%;
-}
-.contenedor-fila-cc
-{
-    width: 450px !important;
-    height: calc(100% - -400px);
-}
-
-.modificado
-{
-    height: calc(56% - 290px);
 }
 
 .btn-menu
@@ -1128,125 +924,6 @@ select
     border-bottom: 5px solid transparent;
 	margin: 24px 0 0 32px;
 }
-.cont-pasajero-gral
-{
-    border-bottom: solid 1px #d35400;
-    cursor: pointer;
-    height:50px;
-}
-.cont-pasajero-gral:hover
-{
-    background-color: #cccccc;
-}
-.cont-pasajero
-{
-    width: 70%;
-    margin-left: 2%;
-    font-size: 14px;
-    font-weight: bold;
-}
-.cont-mini-pasajero
-{
-    width: 70%;
-    margin-left: 5%;
-    font-size: 12px;
-}
-.img-estado-ok
-{
- width:10px;
- height:10px;
- background-color:green;   
- border-radius: 100%;
- display: inline-block;
- margin-right: 20px;
-}
-.img-estado-no
-{
- width:10px;
- height:10px;
- background-color:red;   
- border-radius: 100%;
- display: inline-block;
-  margin-right: 20px;
-
-}
-.visor_pdf
-{
-    width: calc(100% - 1px);
-    height: calc(100% - 3px);
-}
-.contenedor_contrato
-{
-    margin-left: 25%;
-    width: calc(75% - 1px);
-    height: calc(100% - 3px);
-}
-
-.liquidacion{
-    width: 100%;
-    height: 100%;
-}
-
-.titulo_liquidacion
-{
-    font-size: 15px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    width: 100%;
-    font-weight: 600;
-}
-.subtitulo_liquidacion
-{
-    font-size: 14px;
-    border-top: solid 1px #d35400;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    width: 100%;
-}
-.datos_conductor
-{
-    font-size: 14px;
-    height: 25px;
-    line-height: 25px;
-    padding-left: 5%;
-    width: 95%;
-}
-.titulo_tabla_liq
-{
-    border: solid 1px #d35400;
-    text-align: center;
-    width: 100%;
-    font-weight: bold;
-    float: left;
-}
-.contenido_tabla_liq
-{
-    width: calc(25% - 3px);
-    height: calc(100% - 100px);
-    border: solid 1px #d35400;
-    float: left;
-}
-.detalle_tabla_liq
-{
-    font-weight: bold;
-    border: solid 1px #d35400;
-    width: calc(50% - 2px);
-    float: left;
-}
-.contenedor_liquidacion
-{
-    height: calc(100% - 101px);
-}
-
-.conductores
-{
-    font-size: 14px;
-    width: 190px;
-    height: 30px;
-    margin-top: 35px;
-}
 
 .contenedor-dashboard
 {
@@ -1255,46 +932,6 @@ select
     width: 100%;
     height: calc(100% - 40px);
 }
-.contenedor-dashboard-cliente
-{
-    padding-top: 40px;
-    float: left;
-    width: 100%;
-    height: calc(100% - 40px);
-}
-.contenedor-servicios
-{
-    float: left;
-    width: 20%;
-    height: calc(100% - 0px);
-}
-.checkbox-oculto
-{
-    visibility: hidden;
-}
-
-.contenedor_contrato_movil
-{
-    float: right;
-    margin-top: -30px   
-}
-
-#servicio-especial
-{
-    display: none;
-}
-
-.radio-asignar
-{
-    margin-left: 10px;
-}
-
-.contenedor_punto_encuentro
-{
-    font-size: 12px;
-    margin-left: 10px;
-}
-
 .indicador-dashboard
 {
     float: left;
@@ -1337,22 +974,6 @@ select
     line-height: 140px;
     float: left;
 }
-.ruta
-{
-    color: blue;
-}
-.asignar
-{
-    color: orange;
-}
-.realizar
-{
-    color: green;
-}
-.finalizado
-{
-    color: black;
-}
 
 .contenedor_central_titulo
 {
@@ -1362,14 +983,8 @@ select
     background: white;
     margin-left: 1px;
 }
-.contenedor_central_titulo_pasajero
-{
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    background: white;
-}
-.contenedor_central_titulo_tarifa
+
+.contenedor_central_titulo_extension,.contenedor_central_titulo_usuario,.contenedor_central_titulo_centro_costo
 {
     width: 100%;
     height: 40px;
@@ -1391,20 +1006,28 @@ select
     width: 12%;
     text-align: center;
 }
-.contenedor_central_titulo_pasajero div
+.contenedor_central_titulo_extension div
 {
     font-size: 17px;
-    color:#0099ff;
-    float: left;
-    width: 15%;
-    text-align: center;
-}
-.contenedor_central_titulo_tarifa div
-{
-    font-size: 17px;
-    color:#0099ff;
+    color:#dc7633;
     float: left;
     width: 20%;
+    text-align: center;
+}
+.contenedor_central_titulo_usuario div
+{
+    font-size: 17px;
+    color:#dc7633;
+    float: left;
+    width: 16%;
+    text-align: center;
+}
+.contenedor_central_titulo_centro_costo div
+{
+    font-size: 17px;
+    color:#dc7633;
+    float: left;
+    width: 25%;
     text-align: center;
 }
 
@@ -1414,11 +1037,7 @@ select
     width: calc(100% - 1px) !important;
     margin-left: 1px;
 }
-.fila_contenedor_pasajero
-{
-    padding: 0 !important;
-    width: 100% !important;
-}
+
 .fila_contenedor_servicio div
 {
     float: left;
@@ -1432,19 +1051,31 @@ select
     text-align: center;    
 }
 
-.fila_contenedor_tarifa_detalle
+.fila_contenedor_extension_detalle,.fila_contenedor_usuario_detalle,.fila_contenedor_centro_costo_detalle
 {
     padding: 0 !important;
     width: 100% !important;
 }
 
-.fila_contenedor_tarifa_detalle div
+.fila_contenedor_extension_detalle div
 {
     float: left;
     width: 20%;
     text-align: center;    
 }
 
+.fila_contenedor_usuario_detalle div
+{
+    float: left;
+    width: 16%;
+    text-align: center;    
+}
+.fila_contenedor_centro_costo_detalle div
+{
+    float: left;
+    width: 25%;
+    text-align: center;    
+}
 .info-servicio
 {
     height: calc(100% - 140px) !important
@@ -1465,13 +1096,7 @@ select
     width: 200%;
     background-color: #ecf0f1;
 }
-.pie-tarifa
-{
-    width: 100%;
-    background-color: #ecf0f1;
-    height: 50px;
-    display: none;
-}
+
 
 .btn-eliminar
 {
@@ -1569,110 +1194,11 @@ select
     height: calc(100% - 0px);
 }
 
-.tarifa_cont
-{
-    padding-top: 1px !important;
-    height:calc(100% - 63px) !important;
-    min-height: 0 !important;
-}
-.tarifa_cont_cliente
-{
-    padding-top: 1px !important;
-    height:calc(100% - 112px);
-    min-height: 0 !important;
-}
-
 .input-panel
 {
     width: 100%;
 }
 
-.contenedor-panel
-{
-    float: left;
-    width: 50%;
-}
-.contenedor-panel-completo
-{
-    float: left;
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.recargado
-{
-    margin-left: 0 !important;
-    width: 226px !important;
-}
-
-.check_pasajero
-{
-    width: 5% !important;
-}
-.letra_pasajero
-{
-    width:10px !important;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.dato_pasajero
-{
-    width: 10% !important;
-}
-.dir_pasajero
-{
-    width: 44% !important;
-}
-.est_pasajero
-{
-    width: 27% !important;
-}
-
-.nombre_pasajero
-{
-    width: 17% !important;
-}
-.contenedor_editar
-{
-    padding-top: 20px;
-    padding-left: 40px;
-    display: none;
-    width: 38%;
-    margin-left: 59%;
-    height: 50px;
-    background-color: #ecf0f1;
-    border-bottom: solid 1px #d35400;
-}
-.contenedor_agregar
-{
-    padding-top: 20px;
-    padding-left: 40px;
-    display: none;
-    width: 38%;
-    margin-left: 59%;
-    height: 120px;
-    background-color: #ecf0f1;
-    border-bottom: solid 1px #d35400;
-}
-.contenedor_agregar div
-{
-    margin-top: 5px;
-}
-
-#servicios_pendientes_link
-{
-    display: none;
-}
-
-#vConvenio,#vGanCC,#vCantCC
-{
-    font-size: 12px;
-}
-#vConvenio div,#vGanCC div,#vCantCC div
-{
-    height: 20px;
-}
 
 .contenedor_agente
 {
@@ -1699,93 +1225,9 @@ select
     display: inline-block; 
 }
 
-.cont-tarifa
-{
-    height: calc(100% - 82px);
-}
-
-#contenido_tabla_liq_prod,#contenido_tabla_liq_desc,#contenido_tabla_liq_rend
-{
-    font-weight: bold ;
-    margin-top: 10px;
-    width: 100%;
-    height: calc(100% - 10px);
-    min-height: 345px;
-}
-
-.liquidacion_item
-{
-    margin-left: 10%;
-    width: 65%;
-    float:left;
-}
-.liquidacion_valor
-{
-    width:25%;
-    float:left;
-}
-.detalle_total
-{
-    padding-left: 20px;
-    float: left;
-}
-.detalle_total_val
-{
-    float: right;
-    padding-right: 20px;
-}
-
-.item_reporte
-{
-    width: 60% !important;
-    cursor: initial !important;
-}
-.total_reporte
-{
-    width: 30% !important;
-}
-
-.lista_busqueda_liq
-{
-    height: calc(100% - 204px);
-}
-
-#botonCancelar
-{
-    display: none;
-}
-
 .valor_titulo
 {
     display: inline;
-}
-
-.buscador-cliente
-{
-    display: inline;
-    float: right;
-}
-
-.contenedor_sub_liquidacion
-{
-    display: inline;
-    width: 74%;
-    height: calc(100% - 15px);
-    float:left;
-}
-
-.contenedor_produccion_liquidacion
-{
-    border:solid 1px #d35400;
-    width: 33%;
-    height: calc(100% - 65px);
-    float: left;
-}
-.contendor-titulo-liq
-{
-    width: 75%;
-    margin-left: 25%;
-    height: auto;
 }
 
 .fila_fecha
@@ -1795,4 +1237,9 @@ select
 .fila_num
 {
    width: 9% !important;
+}
+.input_asignar_mini
+{
+    width: 20% !important;
+    height: 25px !important;   
 }

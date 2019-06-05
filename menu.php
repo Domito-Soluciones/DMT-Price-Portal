@@ -1,7 +1,5 @@
 <?php
     session_start();
-    if($_SESSION['tipo'] == '0')
-    {
 ?>
 <div class="opcion-menu menu-activo" id="home" onclick="cambiarModulo('home')">
     <div class="cont-img-menu">
@@ -47,6 +45,10 @@
         Estadistica
     </div>
 </div>
+<?php
+    if($_SESSION['tipo'] == '0')
+    {
+?>
 <div class="opcion-menu" id="extension" onclick="cambiarModulo('extension')">
     <div class="cont-img-menu">
         <img class="img-menu" src="img/extension.svg">
@@ -78,6 +80,17 @@
     </div>
     <div class="tooltip" id="tooltip_centro_costo">
         Centros de Costo
+    </div>
+</div>
+<div class="opcion-menu" id="particion" onclick="cambiarModulo('particion')">
+    <div class="cont-img-menu">
+        <img class="img-menu" src="img/particion.svg">
+    </div>
+    <div class="contenido-menu">
+        Particiones
+    </div>
+    <div class="tooltip" id="tooltip_particion">
+        Particiones
     </div>
 </div>
 <div class="opcion-menu" id="sesion" onclick="cambiarModulo('sesion')">

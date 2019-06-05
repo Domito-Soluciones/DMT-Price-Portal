@@ -1,10 +1,10 @@
 <?php
 
-class CentroCosto {
+class Particion {
     private $id;
     private $nombre;
     private $descripcion;
-    private $nivel;
+    private $valor;
     private $categoria;
     
     function getId() {
@@ -19,8 +19,8 @@ class CentroCosto {
         return $this->descripcion;
     }
 
-    function getNivel() {
-        return $this->nivel;
+    function getValor() {
+        return $this->valor;
     }
 
     function getCategoria() {
@@ -39,8 +39,8 @@ class CentroCosto {
         $this->descripcion = $descripcion;
     }
 
-    function setNivel($nivel) {
-        $this->nivel = $nivel;
+    function setValor($valor) {
+        $this->valor = $valor;
     }
 
     function setCategoria($categoria) {
