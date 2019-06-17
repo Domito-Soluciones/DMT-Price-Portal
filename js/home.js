@@ -18,37 +18,24 @@ function generarGraficoDona(canvas,data,options)
 
 function getDashBoard()
 {
-    var url = urlBase + "/estadistica/GetDashBoard.php";
+    var url = urlBase + "/dashboard/GetDashBoard.php";
     var params = {};
     var success = function(response)
     {
-        $("#sFinalizado").html(response.servicio_finalizado);
-        $("#sRuta").html(response.servicio_ruta);
-        $("#sRealizar").html(response.servicio_realizar);
-        $("#sAsignar").html(response.servicio_asignar);
-        var total = parseInt(response.movil_activo)+parseInt(response.movil_inactivo);
-        $("#vActivos").html(response.movil_activo+"/"+total);
-        if(response.produccion_diaria !== '')
-        {
-            $("#pDiaria").html("$ "+response.produccion_diaria);
-        }
-        if(response.produccion_mensual !== '')
-        {
-            $("#pMensual").html("$ "+response.produccion_mensual);
-        }
-        if(response.produccion_minterno !== '')
-        {
-            $("#pInterno").html("$ "+response.produccion_minterno);
-        }
-        var cont = $("#vConvenio");
-        if(response.servicio_convenios.length === 0)
+        $("#gDiario").html(response.gasto_diario === '' ? '$ 0' : '$ '+response.gasto_diario);
+        $("#gSemana").html(response.gasto_semanal === '' ? '$ 0' : '$ '+response.gasto_semanal);
+        $("#gMes").html(response.gasto_mensual === '' ? '$ 0' : '$ '+response.gasto_mensual);
+        $("#userDesac").html(response.usuarios_desac);
+        $("#extDesac").html(response.extensiones_desac);
+        var cont = $("#gCC");
+        if(response.gastos_cc.length === 0)
         {
             cont.append("<div class=\"mensaje_bienvenida\" style=\"padding-top: 20%\">No hay datos registrados</div>");
         }
-        for(var i = 0 ; i < response.servicio_convenios.length;i++)
+        for(var i = 0 ; i < response.gastos_cc.length;i++)
         {
-            var aux = response.servicio_convenios[i];
-            cont.append("<div><div class=\"titulo_barra\">"+aux.convenio_nombre+"</div><div class=\"barra\" id=\"barra"+i+"\"></div><div class=\"fin_barra\">"+aux.convenio_cantidad+"</div></div>");
+            var aux = response.gastos_cc[i];
+            cont.append("<div><div class=\"titulo_barra\">"+aux.centrocosto_nombre+"</div><div class=\"barra\" id=\"barra"+i+"\"></div><div class=\"fin_barra\">"+aux.centrocosto_gasto+"</div></div>");
             cambiarPropiedad($("#barra"+i),"width","100px");
         }
     };

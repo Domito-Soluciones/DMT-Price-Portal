@@ -4,24 +4,7 @@ include '../../conexion/Conexion.php';
 
 class DashBoardDao {
     
-    public function getMovilesActivos()
-    {
-        $array = array();
-        $conn = new Conexion();
-        try {
-            $query = "SELECT COUNT(*) AS movil_cantidad,movil_estado FROM tbl_movil group by movil_estado ORDER BY movil_estado;";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
-            while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["movil_cantidad"]);                    
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $array;
-    }
-    
-    public function getServicios()
+    public function getGastos()
     {
         $array = array();
         $conn = new Conexion();
@@ -30,12 +13,20 @@ class DashBoardDao {
         $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
         $anio = $date['year'];
         $fecha = $anio."-".$mes."-".$dia;
+        $fechaMensual = $anio."-".$mes."-01";
+        $fechaSemanal = date('Y-m-d', strtotime('monday last week last week'));;
         try {
-            $query = "SELECT COUNT(*) AS servicio_cantidad,servicio_estado FROM tbl_servicio WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' GROUP BY servicio_estado";
+            $query = "SELECT SUM(llamada_costo) AS llamada_gasto FROM `tbl_llamada` where llamada_fecha_origen"
+                    . " BETWEEN '$fecha 00:00:00' AND '$fecha 23:59:59' UNION ALL"
+                    . " SELECT SUM(llamada_costo) AS llamada_gasto FROM `tbl_llamada` where llamada_fecha_origen"
+                    . " BETWEEN '$fechaSemanal 00:00:00' and '$fecha 23:59:59' UNION ALL SELECT"
+                    . " SUM(llamada_costo) AS llamada_gasto FROM `tbl_llamada` where llamada_fecha_origen BETWEEN"
+                    . " '$fechaMensual 00:00:00' and '$fecha 23:59:59'";
+            //echo $query;
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
             while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["servicio_estado"]."%".$row["servicio_cantidad"]);
+                array_push($array, $row["llamada_gasto"]);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -43,7 +34,7 @@ class DashBoardDao {
         return $array;
     }
     
-    public function getServiciosCliente($cliente)
+    public function getGastosCC()
     {
         $array = array();
         $conn = new Conexion();
@@ -52,12 +43,14 @@ class DashBoardDao {
         $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
         $anio = $date['year'];
         $fecha = $anio."-".$mes."-".$dia;
+        $fechaMensual = $anio."-".$mes."-01";
         try {
-            $query = "SELECT COUNT(*) AS servicio_cantidad,servicio_estado FROM tbl_servicio WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_cliente = '$cliente' GROUP BY servicio_estado";
+            $query = "SELECT SUM(llamada_costo) AS llamada_gasto,llamada_nombre_centrocosto FROM `tbl_llamada` where llamada_fecha_origen BETWEEN"
+                    . " '$fechaMensual 00:00:00' and '$fecha 23:59:59' GROUP BY llamada_nombre_centrocosto ORDER BY llamada_gasto DESC LIMIT 8";
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
             while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["servicio_estado"]."%".$row["servicio_cantidad"]);
+                array_push($array, $row["llamada_nombre_centrocosto"]."%".$row["llamada_gasto"]);
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -65,147 +58,40 @@ class DashBoardDao {
         return $array;
     }
     
-    public function getServiciosConvenio()
+   
+    public function getUsuariosDesasociados()
     {
-        $array = array();
+        $i = 0;
         $conn = new Conexion();
-        $date = getdate();
-        $dia = $date['mday'] < 10 ? "0".$date['mday'] : $date['mday'];
-        $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $anio = $date['year'];
-        $fecha = $anio."-".$mes."-".$dia;
         try {
-            $query = "SELECT COUNT(*) AS servicio_cantidad,servicio_cliente FROM tbl_servicio WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_estado = 5 GROUP BY servicio_cliente ORDER BY servicio_cantidad DESC";
+            $query = "SELECT COUNT(*) AS total FROM tbl_usuario LEFT JOIN tbl_centrocosto_usuario on usuario_id = centrocostousuario_usuario WHERE centrocostousuario_id IS NULL";
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
             while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["servicio_cliente"]."%".$row["servicio_cantidad"]);
+                $i = $row['total'];
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        return $array;
+        return $i;
     }
-    
-    public function getServiciosCentroCosto()
-    {
-        $array = array();
+        
+    public function getExtensionesDesasociadas(){
+        $i = 0;
         $conn = new Conexion();
-        $date = getdate();
-        $dia = $date['mday'] < 10 ? "0".$date['mday'] : $date['mday'];
-        $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $anio = $date['year'];
-        $fecha = $anio."-".$mes."-".$dia;
-        try {
-            $query = "SELECT count(*) as servicio_cantidad,pasajero_centro_costo FROM tbl_servicio JOIN tbl_servicio_pasajero ON servicio_id = servicio_pasajero_id_servicio JOIN tbl_pasajero ON servicio_pasajero_id_pasajero = pasajero_id JOIN tbl_centro_costo ON pasajero_centro_costo = centro_costo_nombre WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_estado = 5 GROUP BY servicio_cliente ORDER BY servicio_cantidad DESC";
+        try{
+            $query = "SELECT COUNT(*) AS total FROM tbl_extension LEFT JOIN tbl_usuario_extension on extension_id = usuarioextension_extension WHERE usuarioextension_id IS NULL";
             $conn->conectar();
             $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
             while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["pasajero_centro_costo"]."%".$row["servicio_cantidad"]);
+                $i = $row['total'];
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        return $array;
+        return $i;
     }
-    public function getGastoCentroCosto()
-    {
-        $array = array();
-        $conn = new Conexion();
-        $date = getdate();
-        $dia = $date['mday'] < 10 ? "0".$date['mday'] : $date['mday'];
-        $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $anio = $date['year'];
-        $fecha = $anio."-".$mes."-".$dia;
-        try {
-            $query = "SELECT sum(servicio_tarifa2) as servicio_cantidad,pasajero_centro_costo FROM tbl_servicio JOIN tbl_servicio_pasajero ON servicio_id = servicio_pasajero_id_servicio JOIN tbl_pasajero ON servicio_pasajero_id_pasajero = pasajero_id JOIN tbl_centro_costo ON pasajero_centro_costo = centro_costo_nombre WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_estado = 5 GROUP BY servicio_cliente ORDER BY servicio_cantidad DESC";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
-            while($row = mysqli_fetch_array($result)) {
-                array_push($array, $row["pasajero_centro_costo"]."%".$row["servicio_cantidad"]);
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $array;
-    }
-    
-    public function getProduccionDiaria()
-    {
-        $respuesta = 0;
-        $conn = new Conexion();
-        $date = getdate();
-        $dia = $date['mday'] < 10 ? "0".$date['mday'] : $date['mday'];
-        $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $anio = $date['year'];
-        $fecha = $anio."-".$mes."-".$dia;
-        try {
-            $query = "SELECT SUM(servicio_tarifa2) AS produccion_diaria FROM tbl_servicio WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_estado = 5";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
-            while($row = mysqli_fetch_array($result)) {
-                return $row["produccion_diaria"];
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $respuesta;
-    }
-    
-        public function getProduccionMInternos()
-    {
-        $respuesta = 0;
-        $conn = new Conexion();
-        $date = getdate();
-        $dia = $date['mday'] < 10 ? "0".$date['mday'] : $date['mday'];
-        $mes = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $anio = $date['year'];
-        $fecha = $anio."-".$mes."-".$dia;
-        try {
-            $query = "SELECT SUM(servicio_tarifa2) AS produccion_diaria FROM tbl_servicio JOIN tbl_movil ON servicio_movil = movil_nombre WHERE DATE_FORMAT(servicio_fecha, '%Y-%m-%d') = '$fecha' AND servicio_estado = 5 AND movil_tipo = 0";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
-            while($row = mysqli_fetch_array($result)) {
-                return $row["produccion_diaria"];
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $respuesta;
-    }
-    
-    public function getProduccionMensual()
-    {
-        $respuesta = 0;
-        $conn = new Conexion();
-        $date = getdate();
-        $mesDesde = $date['mon'] < 10 ? "0".$date['mon'] : $date['mon'];
-        $mesHasta = "";
-        $anioHasta = $date['year'];
-        if($date['mon'] == "12")
-        {
-            $mesHasta = "01";
-            $anioHasta = $date['year'] + 1;
-        }
-        else
-        {
-            $mesHasta = ($date['mon']+1) < 10 ? "0".($date['mon']+1) : ($date['mon']+1);
-        }
-        $desde = $date['year']."-".$mesDesde."-01 00:00:00";
-        $hasta = $anioHasta."-".$mesHasta."-01 00:00:00";
-        try {
-            $query = "SELECT SUM(servicio_tarifa2) AS produccion_diaria FROM tbl_servicio WHERE servicio_fecha >= '$desde' AND servicio_fecha < '$hasta' AND servicio_estado = 5";
-            $conn->conectar();
-            $result = mysqli_query($conn->conn,$query) or die (mysqli_error($conn->conn)); 
-            while($row = mysqli_fetch_array($result)) {
-                return $row["produccion_diaria"];
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        return $respuesta;
-    }
-    
+   
 
     
 }

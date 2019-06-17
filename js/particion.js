@@ -126,9 +126,9 @@ function abrirModificar(id,nombre)
                 particion = PARTICIONES[i];
             }
         }
-        $("#numero").val(particion.particion_numero);
-        $("#numero").prop("readonly",true);
+        $("#nombre").val(particion.particion_nombre);
         $("#descripcion").val(particion.particion_descripcion);
+        $("#valor").val(particion.particion_valor);
         $("#categoria").val(particion.particion_categoria);
         activarBotones();
     });
@@ -136,25 +136,23 @@ function abrirModificar(id,nombre)
 
 function agregarParticion()
 {
-    var numero = $("#numero").val();
+    var nombre = $("#nombre").val();
     var descripcion = $("#descripcion").val();
+    var valor = $("#valor").val();
     var categoria = $("#categoria").val();
-    var array = [numero,descripcion];
-    if(validarExistencia('numero',numero)){
-        return;
-    }
+    var array = [nombre,descripcion,valor];
     if(!validarCamposOr(array)){
         activarPestania(array);
         alertify.error("Ingrese todos los campos necesarios");
         return;
     }
     if(validarTipoDato()){
-        var params = {numero : numero, descripcion : descripcion, categoria : categoria};
+        var params = {nombre : nombre, descripcion : descripcion,valor: valor, categoria : categoria};
         var url = urlBase + "/particion/AddParticion.php";
         var success = function(response){
             cerrarSession(response);
             ID_EXTENSION = undefined;
-            alertify.success("Extensión Agregada");
+            alertify.success("Partición Agregada");
             vaciarFormulario();
             resetFormulario();
         };
@@ -165,22 +163,23 @@ function agregarParticion()
 function modificarParticion()
 {
     var id = ID_EXTENSION;
-    var numero = $("#numero").val();
+    var nombre = $("#nombre").val();
     var descripcion = $("#descripcion").val();
+    var valor = $("#valor").val();
     var categoria = $("#categoria").val();
-    var array = [numero,descripcion];
+    var array = [nombre,descripcion,valor];
     if(!validarCamposOr(array)){
         activarPestania(array);
         alertify.error("Ingrese todos los campos necesarios");
         return;
     }
     if(validarTipoDato()){
-        var params = {id : id, numero : numero, descripcion : descripcion, categoria : categoria};
+        var params = {id : id, nombre : nombre, descripcion : descripcion,valor: valor, categoria : categoria};
         var url = urlBase + "/particion/ModParticion.php";
         var success = function(response){
             cerrarSession(response);
             ID_EXTENSION = undefined;
-            alertify.success("Extensión Modificada");
+            alertify.success("Partición Modificada");
             resetFormulario();
         };
         postRequest(url,params,success);
@@ -215,10 +214,10 @@ function validarTipoDato(){
     for(var i = 0 ; i < CAMPOS.length ; i++){
         marcarCampoOk($("#"+CAMPOS[i]));
     }
-    var numero = $("#numero");
-    if(!validarNumero(numero.val())){
-        marcarCampoError(numero);
-        alertify.error('Extensión debe ser numerico');
+    var valor = $("#valor");
+    if(!validarNumero(valor.val())){
+        marcarCampoError(valor);
+        alertify.error('Valor debe ser numerico');
         return false;
     }
     return true;

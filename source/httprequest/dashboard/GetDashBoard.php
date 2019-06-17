@@ -6,69 +6,27 @@ include '../../log/Log.php';
 
 header('Content-Type: application/json');
 $dashboardDao = new DashBoardDao();
-$servicios = $dashboardDao->getServicios();
-$serviciosConvenio = $dashboardDao->getServiciosConvenio();
-$produccionDiaria = $dashboardDao->getProduccionDiaria();
-$produccionMensual = $dashboardDao->getProduccionMensual();
-$produccionMInternos = $dashboardDao->getProduccionMInternos();
-$serviciosFinalizados = 0;
-$serviciosEnRuta = 0;
-$serviciosPorRealizar = 0;
-$serviciosPorAsignar = 0;
-for($i = 0 ; $i < count($servicios); $i++)
-{
-    $aux = explode("%",$servicios[$i]);
-    if($aux[0] == '1')
+$gastos = $dashboardDao->getGastos();
+$gastoDiario = $gastos[0];
+$gastoSemanal = $gastos[1];
+$gastoMensual = $gastos[2];
+$gastosCC = $dashboardDao->getGastosCC();
+$usuariosDesasociados = $dashboardDao->getUsuariosDesasociados();
+$extensionesDesasociadas = $dashboardDao->getExtensionesDesasociadas();
+echo "{\"gasto_diario\":\"".$gastoDiario."\","
+    . "\"gasto_semanal\":\"".$gastoSemanal."\","
+    . "\"gasto_mensual\":\"".$gastoMensual."\","
+    . "\"usuarios_desac\":\"".$usuariosDesasociados."\","        
+    . "\"extensiones_desac\":\"".$extensionesDesasociadas."\","
+    . "\"gastos_cc\":[";
+    for($j = 0 ; $j < count($gastosCC);$j++)
     {
-        $serviciosPorAsignar = $aux[1];
-    }
-    else if($aux[0] == '3')
-    {
-        $serviciosPorRealizar = $aux[1];
-    }
-    else if($aux[0] == '4')
-    {
-        $serviciosEnRuta = $aux[1];
-    }
-    else if($aux[0] == '5')
-    {
-        $serviciosFinalizados = $aux[1];
-    }
-}
-$vehiculos = $dashboardDao->getMovilesActivos();
-$activos = 0;
-$inactivos = 0;
-$serviciosDiarios = 0;
-if(isset($vehiculos[0]))
-{
-   $activos = $vehiculos[0];
-}
-if(isset($vehiculos[1]))
-{
-   $inactivos = $vehiculos[1];
-}
-if(isset($servicios[0]))
-{
-   $serviciosDiarios = $servicios[0];
-}
-echo "{\"movil_activo\":\"".$activos."\","
-    . "\"movil_inactivo\":\"".$inactivos."\","
-    . "\"servicio_finalizado\":\"".$serviciosFinalizados."\","        
-    . "\"servicio_ruta\":\"".$serviciosEnRuta."\","        
-    . "\"servicio_realizar\":\"".$serviciosPorRealizar."\","
-    . "\"servicio_asignar\":\"".$serviciosPorAsignar."\","
-    . "\"produccion_diaria\":\"".$produccionDiaria."\","
-    . "\"produccion_mensual\":\"".$produccionMensual."\","
-    . "\"produccion_minterno\":\"".$produccionMInternos."\","
-    . "\"servicio_convenios\":[";
-    for($j = 0 ; $j < count($serviciosConvenio);$j++)
-    {
-        $aux = explode("%", $serviciosConvenio[$j]);
+        $aux = explode("%", $gastosCC[$j]);
         echo "{"
-            . "\"convenio_nombre\":\"".$aux[0]."\","
-            . "\"convenio_cantidad\":\"".$aux[1]."\""
+            . "\"centrocosto_nombre\":\"".$aux[0]."\","
+            . "\"centrocosto_gasto\":\"".$aux[1]."\""
         . "}";
-        if (($j+1) != count($serviciosConvenio))
+        if (($j+1) != count($gastosCC))
         {
             echo ",";
         }
